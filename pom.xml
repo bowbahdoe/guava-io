@@ -16,7 +16,7 @@
         <maven.compiler.target>9</maven.compiler.target>
     </properties>
 
-    <name>guava-net</name>
+    <name>guava-io</name>
     <description>com.google.common.io repackaged and modularized</description>
     <url>https://github.com/bowbahdoe/guava-io</url>
 
@@ -38,9 +38,9 @@
     </licenses>
 
     <scm>
-        <connection>scm:git:git://github.com/bowbahdoe/guava-net.git</connection>
-        <developerConnection>scm:git:ssh://github.com:bowbahdoe/guava-net.git</developerConnection>
-        <url>http://github.com/bowbahdoe/guava-net/tree/main</url>
+        <connection>scm:git:git://github.com/bowbahdoe/guava-io.git</connection>
+        <developerConnection>scm:git:ssh://github.com:bowbahdoe/guava-io.git</developerConnection>
+        <url>http://github.com/bowbahdoe/guava-io/tree/main</url>
     </scm>
 
     <dependencies>
