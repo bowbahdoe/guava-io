@@ -33,8 +33,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * Provides utility methods for working with character streams.
  *
  * <p>Some of the methods in this class take arguments with a generic type of {@code Readable &
- * Closeable}. A {@link Reader} implements both of those interfaces. Similarly for {@code
- * Appendable & Closeable} and {@link Writer}.
+ * Closeable}. A {@code java.io.Reader} implements both of those interfaces. Similarly for {@code
+ * Appendable & Closeable} and {@code java.io.Writer}.
  *
  * @author Chris Nokleberg
  * @author Bin Zhu
@@ -55,7 +55,7 @@ public final class CharStreams {
   private CharStreams() {}
 
   /**
-   * Copies all characters between the {@link Readable} and {@link Appendable} objects. Does not
+   * Copies all characters between the {@code Readable} and {@code Appendable} objects. Does not
    * close or flush either object.
    *
    * @param from the object to read from
@@ -94,10 +94,10 @@ public final class CharStreams {
   // defaults
 
   /**
-   * Copies all characters between the {@link Reader} and {@link StringBuilder} objects. Does not
+   * Copies all characters between the {@code Reader} and {@code StringBuilder} objects. Does not
    * close or flush the reader.
    *
-   * <p>This is identical to {@link #copy(Readable, Appendable)} but optimized for these specific
+   * <p>This is identical to {@code #copy(Readable, Appendable)} but optimized for these specific
    * types. CharBuffer has poor performance when being written into or read out of so round tripping
    * all the bytes through the buffer takes a long time. With these specialized types we can just
    * use a char array.
@@ -122,10 +122,10 @@ public final class CharStreams {
   }
 
   /**
-   * Copies all characters between the {@link Reader} and {@link Writer} objects. Does not close or
+   * Copies all characters between the {@code Reader} and {@code Writer} objects. Does not close or
    * flush the reader or writer.
    *
-   * <p>This is identical to {@link #copy(Readable, Appendable)} but optimized for these specific
+   * <p>This is identical to {@code #copy(Readable, Appendable)} but optimized for these specific
    * types. CharBuffer has poor performance when being written into or read out of so round tripping
    * all the bytes through the buffer takes a long time. With these specialized types we can just
    * use a char array.
@@ -150,7 +150,7 @@ public final class CharStreams {
   }
 
   /**
-   * Reads all characters from a {@link Readable} object into a {@link String}. Does not close the
+   * Reads all characters from a {@code Readable} object into a {@code String}. Does not close the
    * {@code Readable}.
    *
    * @param r the object to read from
@@ -162,11 +162,11 @@ public final class CharStreams {
   }
 
   /**
-   * Reads all characters from a {@link Readable} object into a new {@link StringBuilder} instance.
+   * Reads all characters from a {@code Readable} object into a new {@code StringBuilder} instance.
    * Does not close the {@code Readable}.
    *
    * @param r the object to read from
-   * @return a {@link StringBuilder} containing all the characters
+   * @return a {@code StringBuilder} containing all the characters
    * @throws IOException if an I/O error occurs
    */
   private static StringBuilder toStringBuilder(Readable r) throws IOException {
@@ -180,14 +180,14 @@ public final class CharStreams {
   }
 
   /**
-   * Reads all of the lines from a {@link Readable} object. The lines do not include
+   * Reads all of the lines from a {@code Readable} object. The lines do not include
    * line-termination characters, but do include other leading and trailing whitespace.
    *
-   * <p>Does not close the {@code Readable}. If reading files or resources you should use the {@link
-   * Files#readLines} and {@link Resources#readLines} methods.
+   * <p>Does not close the {@code Readable}. If reading files or resources you should use the {@code
+   * Files#readLines} and {@code Resources#readLines} methods.
    *
    * @param r the object to read from
-   * @return a mutable {@link List} containing all the lines
+   * @return a mutable {@code List} containing all the lines
    * @throws IOException if an I/O error occurs
    */
   public static List<String> readLines(Readable r) throws IOException {
@@ -201,7 +201,7 @@ public final class CharStreams {
   }
 
   /**
-   * Streams lines from a {@link Readable} object, stopping when the processor returns {@code false}
+   * Streams lines from a {@code Readable} object, stopping when the processor returns {@code false}
    * or all lines have been read and returning the result produced by the processor. Does not close
    * {@code readable}. Note that this method may not fully consume the contents of {@code readable}
    * if the processor stops processing early.
@@ -265,7 +265,7 @@ public final class CharStreams {
   }
 
   /**
-   * Returns a {@link Writer} that simply discards written chars.
+   * Returns a {@code Writer} that simply discards written chars.
    *
    * @since 15.0
    */
@@ -329,9 +329,9 @@ public final class CharStreams {
   }
 
   /**
-   * Returns a Writer that sends all output to the given {@link Appendable} target. Closing the
-   * writer will close the target if it is {@link Closeable}, and flushing the writer will flush the
-   * target if it is {@link java.io.Flushable}.
+   * Returns a Writer that sends all output to the given {@code Appendable} target. Closing the
+   * writer will close the target if it is {@code Closeable}, and flushing the writer will flush the
+   * target if it is {@code java.io.Flushable}.
    *
    * @param target the object to which output will be sent
    * @return a new Writer object, unless target is a Writer, in which case the target is returned

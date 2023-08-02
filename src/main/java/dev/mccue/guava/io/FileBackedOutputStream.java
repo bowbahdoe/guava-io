@@ -18,7 +18,6 @@ import static dev.mccue.guava.base.Preconditions.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 import com.google.errorprone.annotations.concurrent.GuardedBy;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -30,7 +29,7 @@ import java.io.OutputStream;
 import dev.mccue.jsr305.CheckForNull;
 
 /**
- * An {@link OutputStream} that starts buffering to a byte array, but switches to file buffering
+ * An {@code OutputStream} that starts buffering to a byte array, but switches to file buffering
  * once the data reaches a configurable size.
  *
  * <p>When this stream creates a temporary file, it restricts the file's permissions to the current
@@ -41,10 +40,15 @@ import dev.mccue.jsr305.CheckForNull;
  * href="https://github.com/google/guava/issues/2575">Guava issue 2575</a>. TODO: b/283778848 - Fill
  * in CVE number once it's available.)
  *
- * <p>Temporary files created by this stream may live in the local filesystem until:
+ * <p>Temporary files created by this stream may live in the local filesystem until either:
  *
  * <ul>
- *   <li>{@link #reset} is called (removing the data in this stream and deleting the file)
+ *   <li>{@code #reset} is called (removing the data in this stream and deleting the file), or...
+ *   <li>this stream (or, more precisely, its {@code #asByteSource} view) is finalized during
+ *       garbage collection, <strong>AND</strong> this stream was not constructed with {@code
+ *       #FileBackedOutputStream(int) the 1-arg constructor} or the {@code
+ *       #FileBackedOutputStream(int, boolean) 2-arg constructor} passing {@code false} in the
+ *       second parameter.
  * </ul>
  *
  * <p>This class is thread-safe.
@@ -52,10 +56,10 @@ import dev.mccue.jsr305.CheckForNull;
  * @author Chris Nokleberg
  * @since 1.0
  */
-@Beta
 @ElementTypesAreNonnullByDefault
 public final class FileBackedOutputStream extends OutputStream {
   private final int fileThreshold;
+  private final boolean resetOnFinalize;
   private final ByteSource source;
 
   @GuardedBy("this")
@@ -81,36 +85,60 @@ public final class FileBackedOutputStream extends OutputStream {
   }
 
   /** Returns the file holding the data (possibly null). */
-  @VisibleForTesting
   @CheckForNull
   synchronized File getFile() {
     return file;
   }
 
   /**
-   * Creates a new instance that uses the given file threshold.
+   * Creates a new instance that uses the given file threshold, and does not reset the data when the
+   * {@code ByteSource} returned by {@code #asByteSource} is finalized.
    *
    * @param fileThreshold the number of bytes before the stream should switch to buffering to a file
    * @throws IllegalArgumentException if {@code fileThreshold} is negative
    */
-  private FileBackedOutputStream(int fileThreshold) {
-    checkArgument(
-        fileThreshold >= 0, "fileThreshold must be non-negative, but was %s", fileThreshold);
-    this.fileThreshold = fileThreshold;
-    memory = new MemoryOutput();
-    out = memory;
-
-    source =
-            new ByteSource() {
-              @Override
-              public InputStream openStream() throws IOException {
-                return openInputStream();
-              }
-            };
+  public FileBackedOutputStream(int fileThreshold) {
+    this(fileThreshold, false);
   }
 
   /**
-   * Returns a readable {@link ByteSource} view of the data that has been written to this stream.
+   * Creates a new instance that uses the given file threshold, and optionally resets the data when
+   * the {@code ByteSource} returned by {@code #asByteSource} is finalized.
+   *
+   * @param fileThreshold the number of bytes before the stream should switch to buffering to a file
+   * @param resetOnFinalize if true, the {@code #reset} method will be called when the {@code
+   *     ByteSource} returned by {@code #asByteSource} is finalized.
+   * @throws IllegalArgumentException if {@code fileThreshold} is negative
+   */
+  private FileBackedOutputStream(int fileThreshold, boolean resetOnFinalize) {
+    checkArgument(
+        fileThreshold >= 0, "fileThreshold must be non-negative, but was %s", fileThreshold);
+    this.fileThreshold = fileThreshold;
+    this.resetOnFinalize = resetOnFinalize;
+    memory = new MemoryOutput();
+    out = memory;
+
+    if (resetOnFinalize) {
+      source =
+          new ByteSource() {
+            @Override
+            public InputStream openStream() throws IOException {
+              return openInputStream();
+            }
+          };
+    } else {
+      source =
+          new ByteSource() {
+            @Override
+            public InputStream openStream() throws IOException {
+              return openInputStream();
+            }
+          };
+    }
+  }
+
+  /**
+   * Returns a readable {@code ByteSource} view of the data that has been written to this stream.
    *
    * @since 15.0
    */
@@ -129,7 +157,7 @@ public final class FileBackedOutputStream extends OutputStream {
   }
 
   /**
-   * Calls {@link #close} if not already closed, and then resets this object back to its initial
+   * Calls {@code #close} if not already closed, and then resets this object back to its initial
    * state, for reuse. If data was buffered to a file, it will be deleted.
    *
    * @throws IOException if an I/O error occurred while deleting the file buffer
@@ -189,6 +217,11 @@ public final class FileBackedOutputStream extends OutputStream {
   private void update(int len) throws IOException {
     if (memory != null && (memory.getCount() + len > fileThreshold)) {
       File temp = TempFileCreator.INSTANCE.createTempFile("FileBackedOutputStream");
+      if (resetOnFinalize) {
+        // Finalizers are not guaranteed to be called on system shutdown;
+        // this is insurance.
+        temp.deleteOnExit();
+      }
       try {
         FileOutputStream transfer = new FileOutputStream(temp);
         transfer.write(memory.getBuffer(), 0, memory.getCount());

@@ -26,7 +26,7 @@ import java.util.Iterator;
 import java.util.stream.Stream;
 
 /**
- * A destination to which characters can be written, such as a text file. Unlike a {@link Writer}, a
+ * A destination to which characters can be written, such as a text file. Unlike a {@code Writer}, a
  * {@code CharSink} is not an open, stateful stream that can be written to and closed. Instead, it
  * is an immutable <i>supplier</i> of {@code Writer} instances.
  *
@@ -41,8 +41,8 @@ import java.util.stream.Stream;
  *       doing something and finally closing the writer that was opened.
  * </ul>
  *
- * <p>Any {@link ByteSink} may be viewed as a {@code CharSink} with a specific {@linkplain Charset
- * character encoding} using {@link ByteSink#asCharSink(Charset)}. Characters written to the
+ * <p>Any {@code ByteSink} may be viewed as a {@code CharSink} with a specific {@code Charset
+ * character encoding} using {@code ByteSink#asCharSink(Charset)}. Characters written to the
  * resulting {@code CharSink} will written to the {@code ByteSink} as encoded bytes.
  *
  * @since 14.0
@@ -55,7 +55,7 @@ public abstract class CharSink {
   protected CharSink() {}
 
   /**
-   * Opens a new {@link Writer} for writing to this sink. This method returns a new, independent
+   * Opens a new {@code Writer} for writing to this sink. This method returns a new, independent
    * writer each time it is called.
    *
    * <p>The caller is responsible for ensuring that the returned writer is closed.
@@ -65,15 +65,15 @@ public abstract class CharSink {
   public abstract Writer openStream() throws IOException;
 
   /**
-   * Opens a new buffered {@link Writer} for writing to this sink. The returned stream is not
-   * required to be a {@link BufferedWriter} in order to allow implementations to simply delegate to
-   * {@link #openStream()} when the stream returned by that method does not benefit from additional
+   * Opens a new buffered {@code Writer} for writing to this sink. The returned stream is not
+   * required to be a {@code BufferedWriter} in order to allow implementations to simply delegate to
+   * {@code #openStream()} when the stream returned by that method does not benefit from additional
    * buffering. This method returns a new, independent writer each time it is called.
    *
    * <p>The caller is responsible for ensuring that the returned writer is closed.
    *
    * @throws IOException if an I/O error occurs while opening the writer
-   * @since 15.0 (in 14.0 with return type {@link BufferedWriter})
+   * @since 15.0 (in 14.0 with return type {@code BufferedWriter})
    */
   public Writer openBufferedStream() throws IOException {
     Writer writer = openStream();
@@ -160,7 +160,7 @@ public abstract class CharSink {
   }
 
   /**
-   * Writes all the text from the given {@link Readable} (such as a {@link Reader}) to this sink.
+   * Writes all the text from the given {@code Readable} (such as a {@code Reader}) to this sink.
    * Does not close {@code readable} if it is {@code Closeable}.
    *
    * @return the number of characters written

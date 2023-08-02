@@ -22,7 +22,7 @@ import java.util.Iterator;
 import dev.mccue.jsr305.CheckForNull;
 
 /**
- * An {@link InputStream} that concatenates multiple substreams. At most one stream will be open at
+ * An {@code InputStream} that concatenates multiple substreams. At most one stream will be open at
  * a time.
  *
  * @author Chris Nokleberg

@@ -14,26 +14,25 @@
 
 package dev.mccue.guava.io;
 
-
-
 import java.io.Flushable;
 import java.io.IOException;
 import java.lang.System.Logger.Level;
+import java.lang.System.Logger;
 
 /**
- * Utility methods for working with {@link Flushable} objects.
+ * Utility methods for working with {@code Flushable} objects.
  *
  * @author Michael Lancaster
  * @since 1.0
  */
 @ElementTypesAreNonnullByDefault
 public final class Flushables {
-  private static final System.Logger logger = System.getLogger(Flushables.class.getName());
+  private static final Logger logger = System.getLogger(Flushables.class.getName());
 
   private Flushables() {}
 
   /**
-   * Flush a {@link Flushable}, with control over whether an {@code IOException} may be thrown.
+   * Flush a {@code Flushable}, with control over whether an {@code IOException} may be thrown.
    *
    * <p>If {@code swallowIOException} is true, then we don't rethrow {@code IOException}, but merely
    * log it.
@@ -41,7 +40,7 @@ public final class Flushables {
    * @param flushable the {@code Flushable} object to be flushed.
    * @param swallowIOException if true, don't propagate IO exceptions thrown by the {@code flush}
    *     method
-   * @throws IOException if {@code swallowIOException} is false and {@link Flushable#flush} throws
+   * @throws IOException if {@code swallowIOException} is false and {@code Flushable#flush} throws
    *     an {@code IOException}.
    * @see Closeables#close
    */
@@ -63,7 +62,6 @@ public final class Flushables {
    *
    * @param flushable the {@code Flushable} object to be flushed.
    */
-  @Beta
   public static void flushQuietly(Flushable flushable) {
     try {
       flush(flushable, true);

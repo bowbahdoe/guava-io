@@ -62,7 +62,7 @@ public final class ByteStreams {
   }
 
   /**
-   * There are three methods to implement {@link FileChannel#transferTo(long, long,
+   * There are three methods to implement {@code FileChannel#transferTo(long, long,
    * WritableByteChannel)}:
    *
    * <ol>
@@ -97,7 +97,7 @@ public final class ByteStreams {
    * stream.
    *
    * <p><b>Java 9 users and later:</b> this method should be treated as deprecated; use the
-   * equivalent {@link InputStream#transferTo} method instead.
+   * equivalent {@code InputStream#transferTo} method instead.
    *
    * @param from the input stream to read from
    * @param to the output stream to write to
@@ -294,7 +294,7 @@ public final class ByteStreams {
   }
 
   /**
-   * Returns a new {@link ByteArrayDataInput} instance to read from the {@code bytes} array from the
+   * Returns a new {@code ByteArrayDataInput} instance to read from the {@code bytes} array from the
    * beginning.
    */
   public static ByteArrayDataInput newDataInput(byte[] bytes) {
@@ -302,7 +302,7 @@ public final class ByteStreams {
   }
 
   /**
-   * Returns a new {@link ByteArrayDataInput} instance to read from the {@code bytes} array,
+   * Returns a new {@code ByteArrayDataInput} instance to read from the {@code bytes} array,
    * starting at the given position.
    *
    * @throws IndexOutOfBoundsException if {@code start} is negative or greater than the length of
@@ -314,7 +314,7 @@ public final class ByteStreams {
   }
 
   /**
-   * Returns a new {@link ByteArrayDataInput} instance to read from the given {@code
+   * Returns a new {@code ByteArrayDataInput} instance to read from the given {@code
    * ByteArrayInputStream}. The given input stream is not reset before being read from by the
    * returned {@code ByteArrayDataInput}.
    *
@@ -470,13 +470,13 @@ public final class ByteStreams {
     }
   }
 
-  /** Returns a new {@link ByteArrayDataOutput} instance with a default size. */
+  /** Returns a new {@code ByteArrayDataOutput} instance with a default size. */
   public static ByteArrayDataOutput newDataOutput() {
     return newDataOutput(new ByteArrayOutputStream());
   }
 
   /**
-   * Returns a new {@link ByteArrayDataOutput} instance sized to hold {@code size} bytes before
+   * Returns a new {@code ByteArrayDataOutput} instance sized to hold {@code size} bytes before
    * resizing.
    *
    * @throws IllegalArgumentException if {@code size} is negative
@@ -491,12 +491,12 @@ public final class ByteStreams {
   }
 
   /**
-   * Returns a new {@link ByteArrayDataOutput} instance which writes to the given {@code
+   * Returns a new {@code ByteArrayDataOutput} instance which writes to the given {@code
    * ByteArrayOutputStream}. The given output stream is not reset before being written to by the
    * returned {@code ByteArrayDataOutput} and new data will be appended to any existing content.
    *
    * <p>Note that if the given output stream was not empty or is modified after the {@code
-   * ByteArrayDataOutput} is created, the contract for {@link ByteArrayDataOutput#toByteArray} will
+   * ByteArrayDataOutput} is created, the contract for {@code ByteArrayDataOutput#toByteArray} will
    * not be honored (the bytes returned in the byte array may not be exactly what was written via
    * calls to {@code ByteArrayDataOutput}).
    *
@@ -674,7 +674,7 @@ public final class ByteStreams {
       };
 
   /**
-   * Returns an {@link OutputStream} that simply discards written bytes.
+   * Returns an {@code OutputStream} that simply discards written bytes.
    *
    * @since 14.0 (since 1.0 as dev.mccue.guava.io.NullOutputStream)
    */
@@ -683,11 +683,11 @@ public final class ByteStreams {
   }
 
   /**
-   * Wraps a {@link InputStream}, limiting the number of bytes which can be read.
+   * Wraps a {@code InputStream}, limiting the number of bytes which can be read.
    *
    * @param in the input stream to be wrapped
    * @param limit the maximum number of bytes to be read
-   * @return a length-limited {@link InputStream}
+   * @return a length-limited {@code InputStream}
    * @since 14.0 (since 1.0 as dev.mccue.guava.io.LimitInputStream)
    */
   public static InputStream limit(InputStream in, long limit) {
@@ -769,7 +769,7 @@ public final class ByteStreams {
 
   /**
    * Attempts to read enough bytes from the stream to fill the given byte array, with the same
-   * behavior as {@link DataInput#readFully(byte[])}. Does not close the stream.
+   * behavior as {@code DataInput#readFully(byte[])}. Does not close the stream.
    *
    * @param in the input stream to read from.
    * @param b the buffer into which the data is read.
@@ -782,7 +782,7 @@ public final class ByteStreams {
 
   /**
    * Attempts to read {@code len} bytes from the stream into the given array starting at {@code
-   * off}, with the same behavior as {@link DataInput#readFully(byte[], int, int)}. Does not close
+   * off}, with the same behavior as {@code DataInput#readFully(byte[], int, int)}. Does not close
    * the stream.
    *
    * @param in the input stream to read from.
@@ -856,7 +856,7 @@ public final class ByteStreams {
   /**
    * Attempts to skip up to {@code n} bytes from the given input stream, but not more than {@code
    * in.available()} bytes. This prevents {@code FileInputStream} from skipping more bytes than
-   * actually remain in the file, something that it {@linkplain java.io.FileInputStream#skip(long)
+   * actually remain in the file, something that it {@code java.io.FileInputStream#skip(long)
    * specifies} it can do in its Javadoc despite the fact that it is violating the contract of
    * {@code InputStream.skip()}.
    */

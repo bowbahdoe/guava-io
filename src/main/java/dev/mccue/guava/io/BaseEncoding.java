@@ -83,31 +83,31 @@ import dev.mccue.jsr305.CheckForNull;
  * <th>Default padding
  * <th>Comments
  * <tr>
- * <td>{@link #base16()}
+ * <td>{@code #base16()}
  * <td>0-9 A-F
  * <td>2.00
  * <td>N/A
  * <td>Traditional hexadecimal. Defaults to upper case.
  * <tr>
- * <td>{@link #base32()}
+ * <td>{@code #base32()}
  * <td>A-Z 2-7
  * <td>1.60
  * <td>=
  * <td>Human-readable; no possibility of mixing up 0/O or 1/I. Defaults to upper case.
  * <tr>
- * <td>{@link #base32Hex()}
+ * <td>{@code #base32Hex()}
  * <td>0-9 A-V
  * <td>1.60
  * <td>=
  * <td>"Numerical" base 32; extended from the traditional hex alphabet. Defaults to upper case.
  * <tr>
- * <td>{@link #base64()}
+ * <td>{@code #base64()}
  * <td>A-Z a-z 0-9 + /
  * <td>1.33
  * <td>=
  * <td>
  * <tr>
- * <td>{@link #base64Url()}
+ * <td>{@code #base64Url()}
  * <td>A-Z a-z 0-9 - _
  * <td>1.33
  * <td>=
@@ -119,6 +119,7 @@ import dev.mccue.jsr305.CheckForNull;
  * @author Louis Wasserman
  * @since 14.0
  */
+
 @ElementTypesAreNonnullByDefault
 public abstract class BaseEncoding {
   // TODO(lowasser): consider making encodeTo(Appendable, byte[], int, int) public.
@@ -204,7 +205,7 @@ public abstract class BaseEncoding {
 
   /**
    * Decodes the specified character sequence, and returns the resulting {@code byte[]}. This is the
-   * inverse operation to {@link #encode(byte[])}.
+   * inverse operation to {@code #encode(byte[])}.
    *
    * @throws IllegalArgumentException if the input is not a valid encoded string according to this
    *     encoding.
@@ -219,7 +220,7 @@ public abstract class BaseEncoding {
 
   /**
    * Decodes the specified character sequence, and returns the resulting {@code byte[]}. This is the
-   * inverse operation to {@link #encode(byte[])}.
+   * inverse operation to {@code #encode(byte[])}.
    *
    * @throws DecodingException if the input is not a valid encoded string according to this
    *     encoding.
@@ -234,7 +235,7 @@ public abstract class BaseEncoding {
 
   /**
    * Returns an {@code InputStream} that decodes base-encoded input from the specified {@code
-   * Reader}. The returned stream throws a {@link DecodingException} upon decoding-specific errors.
+   * Reader}. The returned stream throws a {@code DecodingException} upon decoding-specific errors.
    */
   // Reader,InputStream
   public abstract InputStream decodingStream(Reader reader);
@@ -335,12 +336,12 @@ public abstract class BaseEncoding {
    * (This is the same as the base 64 encoding from <a
    * href="http://tools.ietf.org/html/rfc3548#section-3">RFC 3548</a>.)
    *
-   * <p>The character {@code '='} is used for padding, but can be {@linkplain #omitPadding()
-   * omitted} or {@linkplain #withPadChar(char) replaced}.
+   * <p>The character {@code '='} is used for padding, but can be {@code #omitPadding()
+   * omitted} or {@code #withPadChar(char) replaced}.
    *
    * <p>No line feeds are added by default, as per <a
    * href="http://tools.ietf.org/html/rfc4648#section-3.1">RFC 4648 section 3.1</a>, Line Feeds in
-   * Encoded Data. Line feeds may be added using {@link #withSeparator(String, int)}.
+   * Encoded Data. Line feeds may be added using {@code #withSeparator(String, int)}.
    */
   public static BaseEncoding base64() {
     return BASE64;
@@ -357,12 +358,12 @@ public abstract class BaseEncoding {
    * is the same as the base 64 encoding with URL and filename safe alphabet from <a
    * href="http://tools.ietf.org/html/rfc3548#section-4">RFC 3548</a>.)
    *
-   * <p>The character {@code '='} is used for padding, but can be {@linkplain #omitPadding()
-   * omitted} or {@linkplain #withPadChar(char) replaced}.
+   * <p>The character {@code '='} is used for padding, but can be {@code #omitPadding()
+   * omitted} or {@code #withPadChar(char) replaced}.
    *
    * <p>No line feeds are added by default, as per <a
    * href="http://tools.ietf.org/html/rfc4648#section-3.1">RFC 4648 section 3.1</a>, Line Feeds in
-   * Encoded Data. Line feeds may be added using {@link #withSeparator(String, int)}.
+   * Encoded Data. Line feeds may be added using {@code #withSeparator(String, int)}.
    */
   public static BaseEncoding base64Url() {
     return BASE64_URL;
@@ -376,12 +377,12 @@ public abstract class BaseEncoding {
    * 4648 section 6</a>, Base 32 Encoding. (This is the same as the base 32 encoding from <a
    * href="http://tools.ietf.org/html/rfc3548#section-5">RFC 3548</a>.)
    *
-   * <p>The character {@code '='} is used for padding, but can be {@linkplain #omitPadding()
-   * omitted} or {@linkplain #withPadChar(char) replaced}.
+   * <p>The character {@code '='} is used for padding, but can be {@code #omitPadding()
+   * omitted} or {@code #withPadChar(char) replaced}.
    *
    * <p>No line feeds are added by default, as per <a
    * href="http://tools.ietf.org/html/rfc4648#section-3.1">RFC 4648 section 3.1</a>, Line Feeds in
-   * Encoded Data. Line feeds may be added using {@link #withSeparator(String, int)}.
+   * Encoded Data. Line feeds may be added using {@code #withSeparator(String, int)}.
    */
   public static BaseEncoding base32() {
     return BASE32;
@@ -395,12 +396,12 @@ public abstract class BaseEncoding {
    * href="http://tools.ietf.org/html/rfc4648#section-7">RFC 4648 section 7</a>, Base 32 Encoding
    * with Extended Hex Alphabet. There is no corresponding encoding in RFC 3548.
    *
-   * <p>The character {@code '='} is used for padding, but can be {@linkplain #omitPadding()
-   * omitted} or {@linkplain #withPadChar(char) replaced}.
+   * <p>The character {@code '='} is used for padding, but can be {@code #omitPadding()
+   * omitted} or {@code #withPadChar(char) replaced}.
    *
    * <p>No line feeds are added by default, as per <a
    * href="http://tools.ietf.org/html/rfc4648#section-3.1">RFC 4648 section 3.1</a>, Line Feeds in
-   * Encoded Data. Line feeds may be added using {@link #withSeparator(String, int)}.
+   * Encoded Data. Line feeds may be added using {@code #withSeparator(String, int)}.
    */
   public static BaseEncoding base32Hex() {
     return BASE32_HEX;
@@ -414,12 +415,12 @@ public abstract class BaseEncoding {
    * href="http://tools.ietf.org/html/rfc3548#section-6">RFC 3548</a>.) This is commonly known as
    * "hexadecimal" format.
    *
-   * <p>No padding is necessary in base 16, so {@link #withPadChar(char)} and {@link #omitPadding()}
+   * <p>No padding is necessary in base 16, so {@code #withPadChar(char)} and {@code #omitPadding()}
    * have no effect.
    *
    * <p>No line feeds are added by default, as per <a
    * href="http://tools.ietf.org/html/rfc4648#section-3.1">RFC 4648 section 3.1</a>, Line Feeds in
-   * Encoded Data. Line feeds may be added using {@link #withSeparator(String, int)}.
+   * Encoded Data. Line feeds may be added using {@code #withSeparator(String, int)}.
    */
   public static BaseEncoding base16() {
     return BASE16;

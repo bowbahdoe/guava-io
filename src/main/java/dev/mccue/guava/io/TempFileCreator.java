@@ -22,7 +22,6 @@ import static java.nio.file.attribute.AclEntryType.ALLOW;
 import static java.nio.file.attribute.PosixFilePermissions.asFileAttribute;
 
 import dev.mccue.guava.collect.ImmutableList;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
@@ -47,7 +46,7 @@ abstract class TempFileCreator {
 
   /**
    * @throws IllegalStateException if the directory could not be created (to implement the contract
-   *     of {@link Files#createTempDir()}, such as if the system does not support creating temporary
+   *     of {@code Files#createTempDir()}, such as if the system does not support creating temporary
    *     directories securely
    */
   abstract File createTempDir();

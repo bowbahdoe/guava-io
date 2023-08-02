@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * An {@link InputStream} that counts the number of bytes read.
+ * An {@code InputStream} that counts the number of bytes read.
  *
  * @author Chris Nokleberg
  * @since 1.0

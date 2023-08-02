@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * An implementation of {@link DataInput} that uses little-endian byte ordering for reading {@code
+ * An implementation of {@code DataInput} that uses little-endian byte ordering for reading {@code
  * short}, {@code int}, {@code float}, {@code double}, and {@code long} values.
  *
  * <p><b>Note:</b> This class intentionally violates the specification of its supertype {@code
@@ -49,7 +49,7 @@ public final class LittleEndianDataInputStream extends FilterInputStream impleme
     super(Preconditions.checkNotNull(in));
   }
 
-  /** This method will throw an {@link UnsupportedOperationException}. */
+  /** This method will throw an {@code UnsupportedOperationException}. */
   @CanIgnoreReturnValue // to skip a line
   @Override
   @DoNotCall("Always throws UnsupportedOperationException")
@@ -84,7 +84,7 @@ public final class LittleEndianDataInputStream extends FilterInputStream impleme
   }
 
   /**
-   * Reads an unsigned {@code short} as specified by {@link DataInputStream#readUnsignedShort()},
+   * Reads an unsigned {@code short} as specified by {@code DataInputStream#readUnsignedShort()},
    * except using little-endian byte order.
    *
    * @return the next two bytes of the input stream, interpreted as an unsigned 16-bit integer in
@@ -101,7 +101,7 @@ public final class LittleEndianDataInputStream extends FilterInputStream impleme
   }
 
   /**
-   * Reads an integer as specified by {@link DataInputStream#readInt()}, except using little-endian
+   * Reads an integer as specified by {@code DataInputStream#readInt()}, except using little-endian
    * byte order.
    *
    * @return the next four bytes of the input stream, interpreted as an {@code int} in little-endian
@@ -120,7 +120,7 @@ public final class LittleEndianDataInputStream extends FilterInputStream impleme
   }
 
   /**
-   * Reads a {@code long} as specified by {@link DataInputStream#readLong()}, except using
+   * Reads a {@code long} as specified by {@code DataInputStream#readLong()}, except using
    * little-endian byte order.
    *
    * @return the next eight bytes of the input stream, interpreted as a {@code long} in
@@ -143,7 +143,7 @@ public final class LittleEndianDataInputStream extends FilterInputStream impleme
   }
 
   /**
-   * Reads a {@code float} as specified by {@link DataInputStream#readFloat()}, except using
+   * Reads a {@code float} as specified by {@code DataInputStream#readFloat()}, except using
    * little-endian byte order.
    *
    * @return the next four bytes of the input stream, interpreted as a {@code float} in
@@ -157,7 +157,7 @@ public final class LittleEndianDataInputStream extends FilterInputStream impleme
   }
 
   /**
-   * Reads a {@code double} as specified by {@link DataInputStream#readDouble()}, except using
+   * Reads a {@code double} as specified by {@code DataInputStream#readDouble()}, except using
    * little-endian byte order.
    *
    * @return the next eight bytes of the input stream, interpreted as a {@code double} in
@@ -177,7 +177,7 @@ public final class LittleEndianDataInputStream extends FilterInputStream impleme
   }
 
   /**
-   * Reads a {@code short} as specified by {@link DataInputStream#readShort()}, except using
+   * Reads a {@code short} as specified by {@code DataInputStream#readShort()}, except using
    * little-endian byte order.
    *
    * @return the next two bytes of the input stream, interpreted as a {@code short} in little-endian
@@ -191,7 +191,7 @@ public final class LittleEndianDataInputStream extends FilterInputStream impleme
   }
 
   /**
-   * Reads a char as specified by {@link DataInputStream#readChar()}, except using little-endian
+   * Reads a char as specified by {@code DataInputStream#readChar()}, except using little-endian
    * byte order.
    *
    * @return the next two bytes of the input stream, interpreted as a {@code char} in little-endian

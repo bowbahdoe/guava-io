@@ -19,7 +19,7 @@ package dev.mccue.guava.io;
 import java.nio.file.SecureDirectoryStream;
 
 /**
- * Options for use with recursive delete methods ({@link MoreFiles#deleteRecursively} and {@link
+ * Options for use with recursive delete methods ({@code MoreFiles#deleteRecursively} and {@code
  * MoreFiles#deleteDirectoryContents}).
  *
  * @since 21.0
@@ -31,7 +31,7 @@ public enum RecursiveDeleteOption {
   /**
    * Specifies that the recursive delete should not throw an exception when it can't be guaranteed
    * that it can be done securely, without vulnerability to race conditions (i.e. when the file
-   * system does not support {@link SecureDirectoryStream}).
+   * system does not support {@code SecureDirectoryStream}).
    *
    * <p><b>Warning:</b> On a file system that supports symbolic links, it is possible for an
    * insecure recursive delete to delete files and directories that are <i>outside</i> the directory

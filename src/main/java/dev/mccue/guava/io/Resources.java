@@ -31,7 +31,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Provides utility methods for working with resources in the classpath. Note that even though these
- * methods use {@link URL} parameters, they are usually not appropriate for HTTP or other
+ * methods use {@code URL} parameters, they are usually not appropriate for HTTP or other
  * non-classpath resources.
  *
  * @author Chris Nokleberg
@@ -44,7 +44,7 @@ public final class Resources {
   private Resources() {}
 
   /**
-   * Returns a {@link ByteSource} that reads from the given URL.
+   * Returns a {@code ByteSource} that reads from the given URL.
    *
    * @since 14.0
    */
@@ -52,7 +52,7 @@ public final class Resources {
     return new UrlByteSource(url);
   }
 
-  /** A byte source that reads from a URL using {@link URL#openStream()}. */
+  /** A byte source that reads from a URL using {@code URL#openStream()}. */
   private static final class UrlByteSource extends ByteSource {
 
     private final URL url;
@@ -73,7 +73,7 @@ public final class Resources {
   }
 
   /**
-   * Returns a {@link CharSource} that reads from the given URL using the given character set.
+   * Returns a {@code CharSource} that reads from the given URL using the given character set.
    *
    * @since 14.0
    */
@@ -93,10 +93,10 @@ public final class Resources {
   }
 
   /**
-   * Reads all characters from a URL into a {@link String}, using the given character set.
+   * Reads all characters from a URL into a {@code String}, using the given character set.
    *
    * @param url the URL to read from
-   * @param charset the charset used to decode the input stream; see {@link Charsets} for helpful
+   * @param charset the charset used to decode the input stream; see {@code Charsets} for helpful
    *     predefined constants
    * @return a string containing all the characters from the URL
    * @throws IOException if an I/O error occurs.
@@ -110,7 +110,7 @@ public final class Resources {
    * lines.
    *
    * @param url the URL to read from
-   * @param charset the charset used to decode the input stream; see {@link Charsets} for helpful
+   * @param charset the charset used to decode the input stream; see {@code Charsets} for helpful
    *     predefined constants
    * @param callback the LineProcessor to use to handle the lines
    * @return the output of processing the lines
@@ -131,9 +131,9 @@ public final class Resources {
    * Resources.asCharSource(url, charset).readLines()}.
    *
    * @param url the URL to read from
-   * @param charset the charset used to decode the input stream; see {@link Charsets} for helpful
+   * @param charset the charset used to decode the input stream; see {@code Charsets} for helpful
    *     predefined constants
-   * @return a mutable {@link List} containing all the lines
+   * @return a mutable {@code List} containing all the lines
    * @throws IOException if an I/O error occurs
    */
   public static List<String> readLines(URL url, Charset charset) throws IOException {
@@ -171,7 +171,7 @@ public final class Resources {
 
   /**
    * Returns a {@code URL} pointing to {@code resourceName} if the resource is found using the
-   * {@linkplain Thread#getContextClassLoader() context class loader}. In simple environments, the
+   * {@code Thread#getContextClassLoader() context class loader}. In simple environments, the
    * context class loader will find resources from the class path. In environments where different
    * threads can have different class loaders, for example app servers, the context class loader
    * will typically have been set to an appropriate loader for the current thread.

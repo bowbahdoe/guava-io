@@ -25,8 +25,8 @@ import java.nio.CharBuffer;
 import dev.mccue.jsr305.CheckForNull;
 
 /**
- * A {@link Reader} that reads the characters in a {@link CharSequence}. Like {@code StringReader},
- * but works with any {@link CharSequence}.
+ * A {@code Reader} that reads the characters in a {@code CharSequence}. Like {@code StringReader},
+ * but works with any {@code CharSequence}.
  *
  * @author Colin Decker
  */

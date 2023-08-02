@@ -23,7 +23,7 @@ import java.util.Iterator;
 import dev.mccue.jsr305.CheckForNull;
 
 /**
- * A {@link Reader} that concatenates multiple readers.
+ * A {@code Reader} that concatenates multiple readers.
  *
  * @author Bin Zhu
  * @since 1.0

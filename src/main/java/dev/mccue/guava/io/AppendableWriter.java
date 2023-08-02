@@ -23,8 +23,8 @@ import java.io.Writer;
 import dev.mccue.jsr305.CheckForNull;
 
 /**
- * Writer that places all output on an {@link Appendable} target. If the target is {@link Flushable}
- * or {@link Closeable}, flush()es and close()s will also be delegated to the target.
+ * Writer that places all output on an {@code Appendable} target. If the target is {@code Flushable}
+ * or {@code Closeable}, flush()es and close()s will also be delegated to the target.
  *
  * @author Alan Green
  * @author Sebastian Kanthak

@@ -26,9 +26,9 @@ import java.util.Queue;
 import dev.mccue.jsr305.CheckForNull;
 
 /**
- * A class for reading lines of text. Provides the same functionality as {@link
- * java.io.BufferedReader#readLine()} but for all {@link Readable} objects, not just instances of
- * {@link Reader}.
+ * A class for reading lines of text. Provides the same functionality as {@code
+ * java.io.BufferedReader#readLine()} but for all {@code Readable} objects, not just instances of
+ * {@code Reader}.
  *
  * @author Chris Nokleberg
  * @since 1.0

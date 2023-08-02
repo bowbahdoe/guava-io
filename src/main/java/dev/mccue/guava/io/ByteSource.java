@@ -41,7 +41,7 @@ import java.util.Iterator;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
- * A readable source of bytes, such as a file. Unlike an {@link InputStream}, a {@code ByteSource}
+ * A readable source of bytes, such as a file. Unlike an {@code InputStream}, a {@code ByteSource}
  * is not an open, stateful stream for input that can be read and closed. Instead, it is an
  * immutable <i>supplier</i> of {@code InputStream} instances.
  *
@@ -60,11 +60,11 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * that provide streams that are:
  *
  * <ul>
- *   <li><b>Finite:</b> Many operations, such as {@link #size()} and {@link #read()}, will either
+ *   <li><b>Finite:</b> Many operations, such as {@code #size()} and {@code #read()}, will either
  *       block indefinitely or fail if the source creates an infinite stream.
  *   <li><b>Non-destructive:</b> A <i>destructive</i> stream will consume or otherwise alter the
  *       bytes of the source as they are read from it. A source that provides such streams will not
- *       be reusable, and operations that read from the stream (including {@link #size()}, in some
+ *       be reusable, and operations that read from the stream (including {@code #size()}, in some
  *       implementations) will prevent further operations from completing as expected.
  * </ul>
  *
@@ -78,10 +78,10 @@ public abstract class ByteSource {
   protected ByteSource() {}
 
   /**
-   * Returns a {@link CharSource} view of this byte source that decodes bytes read from this source
-   * as characters using the given {@link Charset}.
+   * Returns a {@code CharSource} view of this byte source that decodes bytes read from this source
+   * as characters using the given {@code Charset}.
    *
-   * <p>If {@link CharSource#asByteSource} is called on the returned source with the same charset,
+   * <p>If {@code CharSource#asByteSource} is called on the returned source with the same charset,
    * the default implementation of this method will ensure that the original {@code ByteSource} is
    * returned, rather than round-trip encoding. Subclasses that override this method should behave
    * the same way.
@@ -91,7 +91,7 @@ public abstract class ByteSource {
   }
 
   /**
-   * Opens a new {@link InputStream} for reading from this source. This method returns a new,
+   * Opens a new {@code InputStream} for reading from this source. This method returns a new,
    * independent stream each time it is called.
    *
    * <p>The caller is responsible for ensuring that the returned stream is closed.
@@ -101,16 +101,16 @@ public abstract class ByteSource {
   public abstract InputStream openStream() throws IOException;
 
   /**
-   * Opens a new buffered {@link InputStream} for reading from this source. The returned stream is
-   * not required to be a {@link BufferedInputStream} in order to allow implementations to simply
-   * delegate to {@link #openStream()} when the stream returned by that method does not benefit from
+   * Opens a new buffered {@code InputStream} for reading from this source. The returned stream is
+   * not required to be a {@code BufferedInputStream} in order to allow implementations to simply
+   * delegate to {@code #openStream()} when the stream returned by that method does not benefit from
    * additional buffering (for example, a {@code ByteArrayInputStream}). This method returns a new,
    * independent stream each time it is called.
    *
    * <p>The caller is responsible for ensuring that the returned stream is closed.
    *
    * @throws IOException if an I/O error occurs while opening the stream
-   * @since 15.0 (in 14.0 with return type {@link BufferedInputStream})
+   * @since 15.0 (in 14.0 with return type {@code BufferedInputStream})
    */
   public InputStream openBufferedStream() throws IOException {
     InputStream in = openStream();
@@ -133,7 +133,7 @@ public abstract class ByteSource {
   }
 
   /**
-   * Returns whether the source has zero bytes. The default implementation first checks {@link
+   * Returns whether the source has zero bytes. The default implementation first checks {@code
    * #sizeIfKnown}, returning true if it's known to be zero and false if it's known to be non-zero.
    * If the size is not known, it falls back to opening a stream and checking for EOF.
    *
@@ -165,7 +165,7 @@ public abstract class ByteSource {
    * Returns the size of this source in bytes, if the size can be easily determined without actually
    * opening the data stream.
    *
-   * <p>The default implementation returns {@link Optional#absent}. Some sources, such as a file,
+   * <p>The default implementation returns {@code Optional#absent}. Some sources, such as a file,
    * may return a non-absent value. Note that in such cases, it is <i>possible</i> that this method
    * will return a different number of bytes than would be returned by reading all of the bytes (for
    * example, some special files may return a size of 0 despite actually having content when read).
@@ -181,14 +181,14 @@ public abstract class ByteSource {
 
   /**
    * Returns the size of this source in bytes, even if doing so requires opening and traversing an
-   * entire stream. To avoid a potentially expensive operation, see {@link #sizeIfKnown}.
+   * entire stream. To avoid a potentially expensive operation, see {@code #sizeIfKnown}.
    *
-   * <p>The default implementation calls {@link #sizeIfKnown} and returns the value if present. If
-   * absent, it will fall back to a heavyweight operation that will open a stream, read (or {@link
+   * <p>The default implementation calls {@code #sizeIfKnown} and returns the value if present. If
+   * absent, it will fall back to a heavyweight operation that will open a stream, read (or {@code
    * InputStream#skip(long) skip}, if possible) to the end of the stream and return the total number
    * of bytes that were read.
    *
-   * <p>Note that for some sources that implement {@link #sizeIfKnown} to provide a more efficient
+   * <p>Note that for some sources that implement {@code #sizeIfKnown} to provide a more efficient
    * implementation, it is <i>possible</i> that this method will return a different number of bytes
    * than would be returned by reading all of the bytes (for example, some special files may return
    * a size of 0 despite actually having content when read).
@@ -370,7 +370,7 @@ public abstract class ByteSource {
   }
 
   /**
-   * Concatenates multiple {@link ByteSource} instances into a single source. Streams returned from
+   * Concatenates multiple {@code ByteSource} instances into a single source. Streams returned from
    * the source will contain the concatenated data from the streams of the underlying sources.
    *
    * <p>Only one underlying stream will be open at a time. Closing the concatenated stream will
@@ -385,7 +385,7 @@ public abstract class ByteSource {
   }
 
   /**
-   * Concatenates multiple {@link ByteSource} instances into a single source. Streams returned from
+   * Concatenates multiple {@code ByteSource} instances into a single source. Streams returned from
    * the source will contain the concatenated data from the streams of the underlying sources.
    *
    * <p>Only one underlying stream will be open at a time. Closing the concatenated stream will
@@ -394,7 +394,7 @@ public abstract class ByteSource {
    * <p>Note: The input {@code Iterator} will be copied to an {@code ImmutableList} when this method
    * is called. This will fail if the iterator is infinite and may cause problems if the iterator
    * eagerly fetches data for each source when iterated (rather than producing sources that only
-   * load data through their streams). Prefer using the {@link #concat(Iterable)} overload if
+   * load data through their streams). Prefer using the {@code #concat(Iterable)} overload if
    * possible.
    *
    * @param sources the sources to concatenate
@@ -407,7 +407,7 @@ public abstract class ByteSource {
   }
 
   /**
-   * Concatenates multiple {@link ByteSource} instances into a single source. Streams returned from
+   * Concatenates multiple {@code ByteSource} instances into a single source. Streams returned from
    * the source will contain the concatenated data from the streams of the underlying sources.
    *
    * <p>Only one underlying stream will be open at a time. Closing the concatenated stream will
@@ -423,7 +423,7 @@ public abstract class ByteSource {
   }
 
   /**
-   * Returns a view of the given byte array as a {@link ByteSource}. To view only a specific range
+   * Returns a view of the given byte array as a {@code ByteSource}. To view only a specific range
    * in the array, use {@code ByteSource.wrap(b).slice(offset, length)}.
    *
    * <p>Note that the given byte array may be passed directly to methods on, for example, {@code
@@ -438,7 +438,7 @@ public abstract class ByteSource {
   }
 
   /**
-   * Returns an immutable {@link ByteSource} that contains no bytes.
+   * Returns an immutable {@code ByteSource} that contains no bytes.
    *
    * @since 15.0
    */

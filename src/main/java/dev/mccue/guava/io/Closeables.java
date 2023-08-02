@@ -14,29 +14,28 @@
 
 package dev.mccue.guava.io;
 
-
-import dev.mccue.jsr305.CheckForNull;
-
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.lang.System.Logger.Level;
+import java.lang.System.Logger;
+import dev.mccue.jsr305.CheckForNull;
 
 /**
- * Utility methods for working with {@link Closeable} objects.
+ * Utility methods for working with {@code Closeable} objects.
  *
  * @author Michael Lancaster
  * @since 1.0
  */
 @ElementTypesAreNonnullByDefault
 public final class Closeables {
-  @VisibleForTesting static final System.Logger logger = System.getLogger(Closeables.class.getName());
+  static final Logger logger = System.getLogger(Closeables.class.getName());
 
   private Closeables() {}
 
   /**
-   * Closes a {@link Closeable}, with control over whether an {@code IOException} may be thrown.
+   * Closes a {@code Closeable}, with control over whether an {@code IOException} may be thrown.
    * This is primarily useful in a finally block, where a thrown exception needs to be logged but
    * not propagated (otherwise the original exception will be lost).
    *
@@ -83,7 +82,7 @@ public final class Closeables {
   }
 
   /**
-   * Closes the given {@link InputStream}, logging any {@code IOException} that's thrown rather than
+   * Closes the given {@code InputStream}, logging any {@code IOException} that's thrown rather than
    * propagating it.
    *
    * <p>While it's not safe in the general case to ignore exceptions that are thrown when closing an
@@ -105,7 +104,7 @@ public final class Closeables {
   }
 
   /**
-   * Closes the given {@link Reader}, logging any {@code IOException} that's thrown rather than
+   * Closes the given {@code Reader}, logging any {@code IOException} that's thrown rather than
    * propagating it.
    *
    * <p>While it's not safe in the general case to ignore exceptions that are thrown when closing an

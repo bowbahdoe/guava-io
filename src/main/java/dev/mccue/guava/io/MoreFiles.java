@@ -25,7 +25,6 @@ import dev.mccue.guava.base.Optional;
 import dev.mccue.guava.base.Predicate;
 import dev.mccue.guava.collect.ImmutableList;
 import dev.mccue.guava.graph.Traverser;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -55,10 +54,10 @@ import java.util.stream.Stream;
 import dev.mccue.jsr305.CheckForNull;
 
 /**
- * Static utilities for use with {@link Path} instances, intended to complement {@link Files}.
+ * Static utilities for use with {@code Path} instances, intended to complement {@code Files}.
  *
- * <p>Many methods provided by Guava's {@code Files} class for {@link java.io.File} instances are
- * now available via the JDK's {@link Files} class for {@code Path} - check the JDK's
+ * <p>Many methods provided by Guava's {@code Files} class for {@code java.io.File} instances are
+ * now available via the JDK's {@code java.nio.file.Files} class for {@code Path} - check the JDK's
  * class if a sibling method from {@code Files} appears to be missing from this class.
  *
  * @since 21.0
@@ -71,12 +70,12 @@ public final class MoreFiles {
   private MoreFiles() {}
 
   /**
-   * Returns a view of the given {@code path} as a {@link ByteSource}.
+   * Returns a view of the given {@code path} as a {@code ByteSource}.
    *
-   * <p>Any {@linkplain OpenOption open options} provided are used when opening streams to the file
-   * and may affect the behavior of the returned source and the streams it provides. See {@link
+   * <p>Any {@code OpenOption open options} provided are used when opening streams to the file
+   * and may affect the behavior of the returned source and the streams it provides. See {@code
    * StandardOpenOption} for the standard options that may be provided. Providing no options is
-   * equivalent to providing the {@link StandardOpenOption#READ READ} option.
+   * equivalent to providing the {@code StandardOpenOption#READ READ} option.
    */
   public static ByteSource asByteSource(Path path, OpenOption... options) {
     return new PathByteSource(path, options);
@@ -187,13 +186,13 @@ public final class MoreFiles {
   }
 
   /**
-   * Returns a view of the given {@code path} as a {@link ByteSink}.
+   * Returns a view of the given {@code path} as a {@code ByteSink}.
    *
-   * <p>Any {@linkplain OpenOption open options} provided are used when opening streams to the file
-   * and may affect the behavior of the returned sink and the streams it provides. See {@link
+   * <p>Any {@code OpenOption open options} provided are used when opening streams to the file
+   * and may affect the behavior of the returned sink and the streams it provides. See {@code
    * StandardOpenOption} for the standard options that may be provided. Providing no options is
-   * equivalent to providing the {@link StandardOpenOption#CREATE CREATE}, {@link
-   * StandardOpenOption#TRUNCATE_EXISTING TRUNCATE_EXISTING} and {@link StandardOpenOption#WRITE
+   * equivalent to providing the {@code StandardOpenOption#CREATE CREATE}, {@code
+   * StandardOpenOption#TRUNCATE_EXISTING TRUNCATE_EXISTING} and {@code StandardOpenOption#WRITE
    * WRITE} options.
    */
   public static ByteSink asByteSink(Path path, OpenOption... options) {
@@ -223,26 +222,26 @@ public final class MoreFiles {
   }
 
   /**
-   * Returns a view of the given {@code path} as a {@link CharSource} using the given {@code
+   * Returns a view of the given {@code path} as a {@code CharSource} using the given {@code
    * charset}.
    *
-   * <p>Any {@linkplain OpenOption open options} provided are used when opening streams to the file
-   * and may affect the behavior of the returned source and the streams it provides. See {@link
+   * <p>Any {@code OpenOption open options} provided are used when opening streams to the file
+   * and may affect the behavior of the returned source and the streams it provides. See {@code
    * StandardOpenOption} for the standard options that may be provided. Providing no options is
-   * equivalent to providing the {@link StandardOpenOption#READ READ} option.
+   * equivalent to providing the {@code StandardOpenOption#READ READ} option.
    */
   public static CharSource asCharSource(Path path, Charset charset, OpenOption... options) {
     return asByteSource(path, options).asCharSource(charset);
   }
 
   /**
-   * Returns a view of the given {@code path} as a {@link CharSink} using the given {@code charset}.
+   * Returns a view of the given {@code path} as a {@code CharSink} using the given {@code charset}.
    *
-   * <p>Any {@linkplain OpenOption open options} provided are used when opening streams to the file
-   * and may affect the behavior of the returned sink and the streams it provides. See {@link
+   * <p>Any {@code OpenOption open options} provided are used when opening streams to the file
+   * and may affect the behavior of the returned sink and the streams it provides. See {@code
    * StandardOpenOption} for the standard options that may be provided. Providing no options is
-   * equivalent to providing the {@link StandardOpenOption#CREATE CREATE}, {@link
-   * StandardOpenOption#TRUNCATE_EXISTING TRUNCATE_EXISTING} and {@link StandardOpenOption#WRITE
+   * equivalent to providing the {@code StandardOpenOption#CREATE CREATE}, {@code
+   * StandardOpenOption#TRUNCATE_EXISTING TRUNCATE_EXISTING} and {@code StandardOpenOption#WRITE
    * WRITE} options.
    */
   public static CharSink asCharSink(Path path, Charset charset, OpenOption... options) {
@@ -266,20 +265,20 @@ public final class MoreFiles {
   }
 
   /**
-   * Returns a {@link Traverser} instance for the file and directory tree. The returned traverser
-   * starts from a {@link Path} and will return all files and directories it encounters.
+   * Returns a {@code Traverser} instance for the file and directory tree. The returned traverser
+   * starts from a {@code Path} and will return all files and directories it encounters.
    *
    * <p>The returned traverser attempts to avoid following symbolic links to directories. However,
    * the traverser cannot guarantee that it will not follow symbolic links to directories as it is
    * possible for a directory to be replaced with a symbolic link between checking if the file is a
    * directory and actually reading the contents of that directory.
    *
-   * <p>If the {@link Path} passed to one of the traversal methods does not exist or is not a
-   * directory, no exception will be thrown and the returned {@link Iterable} will contain a single
+   * <p>If the {@code Path} passed to one of the traversal methods does not exist or is not a
+   * directory, no exception will be thrown and the returned {@code Iterable} will contain a single
    * element: that path.
    *
-   * <p>{@link DirectoryIteratorException} may be thrown when iterating {@link Iterable} instances
-   * created by this traverser if an {@link IOException} is thrown by a call to {@link
+   * <p>{@code DirectoryIteratorException} may be thrown when iterating {@code Iterable} instances
+   * created by this traverser if an {@code IOException} is thrown by a call to {@code
    * #listFiles(Path)}.
    *
    * <p>Example: {@code MoreFiles.fileTraverser().depthFirstPreOrder(Paths.get("/"))} may return the
@@ -305,7 +304,7 @@ public final class MoreFiles {
   }
 
   /**
-   * Returns a predicate that returns the result of {@link Files#isDirectory(Path,
+   * Returns a predicate that returns the result of {@code java.nio.file.Files#isDirectory(Path,
    * LinkOption...)} on input paths with the given link options.
    */
   public static Predicate<Path> isDirectory(LinkOption... options) {
@@ -332,7 +331,7 @@ public final class MoreFiles {
   }
 
   /**
-   * Returns a predicate that returns the result of {@link Files#isRegularFile(Path,
+   * Returns a predicate that returns the result of {@code java.nio.file.Files#isRegularFile(Path,
    * LinkOption...)} on input paths with the given link options.
    */
   public static Predicate<Path> isRegularFile(LinkOption... options) {
@@ -445,8 +444,8 @@ public final class MoreFiles {
    * not include the '{@code .}'.
    *
    * <p><b>Note:</b> This method simply returns everything after the last '{@code .}' in the file's
-   * name as determined by {@link Path#getFileName}. It does not account for any filesystem-specific
-   * behavior that the {@link Path} API does not already account for. For example, on NTFS it will
+   * name as determined by {@code Path#getFileName}. It does not account for any filesystem-specific
+   * behavior that the {@code Path} API does not already account for. For example, on NTFS it will
    * report {@code "txt"} as the extension for the filename {@code "foo.exe:.txt"} even though NTFS
    * will drop the {@code ":.txt"} part of the name when the file is actually created on the
    * filesystem due to NTFS's <a href="https://goo.gl/vTpJi4">Alternate Data Streams</a>.
@@ -489,23 +488,23 @@ public final class MoreFiles {
    * <p>If an I/O exception occurs attempting to read, open or delete any file under the given
    * directory, this method skips that file and continues. All such exceptions are collected and,
    * after attempting to delete all files, an {@code IOException} is thrown containing those
-   * exceptions as {@linkplain Throwable#getSuppressed() suppressed exceptions}.
+   * exceptions as {@code Throwable#getSuppressed() suppressed exceptions}.
    *
-   * <h4>Warning: Security of recursive deletes</h4>
+   * <h2>Warning: Security of recursive deletes</h2>
    *
-   * <p>On a file system that supports symbolic links and does <i>not</i> support {@link
+   * <p>On a file system that supports symbolic links and does <i>not</i> support {@code
    * SecureDirectoryStream}, it is possible for a recursive delete to delete files and directories
    * that are <i>outside</i> the directory being deleted. This can happen if, after checking that a
    * file is a directory (and not a symbolic link), that directory is replaced by a symbolic link to
    * an outside directory before the call that opens the directory to read its entries.
    *
-   * <p>By default, this method throws {@link InsecureRecursiveDeleteException} if it can't
+   * <p>By default, this method throws {@code InsecureRecursiveDeleteException} if it can't
    * guarantee the security of recursive deletes. If you wish to allow the recursive deletes anyway,
-   * pass {@link RecursiveDeleteOption#ALLOW_INSECURE} to this method to override that behavior.
+   * pass {@code RecursiveDeleteOption#ALLOW_INSECURE} to this method to override that behavior.
    *
    * @throws NoSuchFileException if {@code path} does not exist <i>(optional specific exception)</i>
    * @throws InsecureRecursiveDeleteException if the security of recursive deletes can't be
-   *     guaranteed for the file system and {@link RecursiveDeleteOption#ALLOW_INSECURE} was not
+   *     guaranteed for the file system and {@code RecursiveDeleteOption#ALLOW_INSECURE} was not
    *     specified
    * @throws IOException if {@code path} or any file in the subtree rooted at it can't be deleted
    *     for any reason
@@ -552,7 +551,7 @@ public final class MoreFiles {
   }
 
   /**
-   * Deletes all files within the directory at the given {@code path} {@linkplain #deleteRecursively
+   * Deletes all files within the directory at the given {@code path} {@code #deleteRecursively
    * recursively}. Does not delete the directory itself. Deletes symbolic links, not their targets
    * (subject to the caveat below). If {@code path} itself is a symbolic link to a directory, that
    * link is followed and the contents of the directory it targets are deleted.
@@ -560,25 +559,25 @@ public final class MoreFiles {
    * <p>If an I/O exception occurs attempting to read, open or delete any file under the given
    * directory, this method skips that file and continues. All such exceptions are collected and,
    * after attempting to delete all files, an {@code IOException} is thrown containing those
-   * exceptions as {@linkplain Throwable#getSuppressed() suppressed exceptions}.
+   * exceptions as {@code Throwable#getSuppressed() suppressed exceptions}.
    *
-   * <h4>Warning: Security of recursive deletes</h4>
+   * <h2>Warning: Security of recursive deletes</h2>
    *
-   * <p>On a file system that supports symbolic links and does <i>not</i> support {@link
+   * <p>On a file system that supports symbolic links and does <i>not</i> support {@code
    * SecureDirectoryStream}, it is possible for a recursive delete to delete files and directories
    * that are <i>outside</i> the directory being deleted. This can happen if, after checking that a
    * file is a directory (and not a symbolic link), that directory is replaced by a symbolic link to
    * an outside directory before the call that opens the directory to read its entries.
    *
-   * <p>By default, this method throws {@link InsecureRecursiveDeleteException} if it can't
+   * <p>By default, this method throws {@code InsecureRecursiveDeleteException} if it can't
    * guarantee the security of recursive deletes. If you wish to allow the recursive deletes anyway,
-   * pass {@link RecursiveDeleteOption#ALLOW_INSECURE} to this method to override that behavior.
+   * pass {@code RecursiveDeleteOption#ALLOW_INSECURE} to this method to override that behavior.
    *
    * @throws NoSuchFileException if {@code path} does not exist <i>(optional specific exception)</i>
    * @throws NotDirectoryException if the file at {@code path} is not a directory <i>(optional
    *     specific exception)</i>
    * @throws InsecureRecursiveDeleteException if the security of recursive deletes can't be
-   *     guaranteed for the file system and {@link RecursiveDeleteOption#ALLOW_INSECURE} was not
+   *     guaranteed for the file system and {@code RecursiveDeleteOption#ALLOW_INSECURE} was not
    *     specified
    * @throws IOException if one or more files can't be deleted for any reason
    */
@@ -781,7 +780,7 @@ public final class MoreFiles {
    * Throws an exception indicating that one or more files couldn't be deleted when deleting {@code
    * path} or its contents.
    *
-   * <p>If there is only one exception in the collection, and it is a {@link NoSuchFileException}
+   * <p>If there is only one exception in the collection, and it is a {@code NoSuchFileException}
    * thrown because {@code path} itself didn't exist, then throws that exception. Otherwise, the
    * thrown exception contains all the exceptions in the given collection as suppressed exceptions.
    */

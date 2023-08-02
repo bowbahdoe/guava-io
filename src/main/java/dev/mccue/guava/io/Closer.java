@@ -16,7 +16,6 @@ package dev.mccue.guava.io;
 
 import static dev.mccue.guava.base.Preconditions.checkNotNull;
 
-
 import dev.mccue.guava.base.Throwables;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import java.io.Closeable;
@@ -29,8 +28,8 @@ import dev.mccue.jsr305.CheckForNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
- * A {@link Closeable} that collects {@code Closeable} resources and closes them all when it is
- * {@linkplain #close closed}. This is intended to approximately emulate the behavior of Java 7's <a
+ * A {@code Closeable} that collects {@code Closeable} resources and closes them all when it is
+ * {@code #close closed}. This is intended to approximately emulate the behavior of Java 7's <a
  * href="http://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html"
  * >try-with-resources</a> statement in JDK6-compatible code. Running on Java 7, code using this
  * should be approximately equivalent in behavior to the same code written with try-with-resources.
@@ -84,7 +83,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @author Colin Decker
  * @since 14.0
  */
-// Coffee's for {@link Closer closers} only.
+// Coffee's for {@code Closer closers} only.
 @ElementTypesAreNonnullByDefault
 public final class Closer implements Closeable {
 
@@ -96,24 +95,23 @@ public final class Closer implements Closeable {
     SUPPRESSOR = suppressingSuppressor == null ? LoggingSuppressor.INSTANCE : suppressingSuppressor;
   }
 
-  /** Creates a new {@link Closer}. */
+  /** Creates a new {@code Closer}. */
   public static Closer create() {
     return new Closer(SUPPRESSOR);
   }
 
-  @VisibleForTesting final Suppressor suppressor;
+  final Suppressor suppressor;
 
   // only need space for 2 elements in most cases, so try to use the smallest array possible
   private final Deque<Closeable> stack = new ArrayDeque<>(4);
   @CheckForNull private Throwable thrown;
 
-  @VisibleForTesting
   Closer(Suppressor suppressor) {
     this.suppressor = checkNotNull(suppressor); // checkNotNull to satisfy null tests
   }
 
   /**
-   * Registers the given {@code closeable} to be closed when this {@code Closer} is {@linkplain
+   * Registers the given {@code closeable} to be closed when this {@code Closer} is {@code
    * #close closed}.
    *
    * @return the given {@code closeable}
@@ -228,7 +226,6 @@ public final class Closer implements Closeable {
   }
 
   /** Suppression strategy interface. */
-  @VisibleForTesting
   interface Suppressor {
     /**
      * Suppresses the given exception ({@code suppressed}) which was thrown when attempting to close
@@ -239,7 +236,6 @@ public final class Closer implements Closeable {
   }
 
   /** Suppresses exceptions by logging them. */
-  @VisibleForTesting
   static final class LoggingSuppressor implements Suppressor {
 
     static final LoggingSuppressor INSTANCE = new LoggingSuppressor();
@@ -256,7 +252,6 @@ public final class Closer implements Closeable {
    * Suppresses exceptions by adding them to the exception that will be thrown using JDK7's
    * addSuppressed(Throwable) mechanism.
    */
-  @VisibleForTesting
   static final class SuppressingSuppressor implements Suppressor {
     @CheckForNull
     static SuppressingSuppressor tryCreate() {

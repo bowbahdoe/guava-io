@@ -18,12 +18,12 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import java.io.IOException;
 
 /**
- * Package-protected abstract class that implements the line reading algorithm used by {@link
- * LineReader}. Line separators are per {@link java.io.BufferedReader}: line feed, carriage return,
+ * Package-protected abstract class that implements the line reading algorithm used by {@code
+ * LineReader}. Line separators are per {@code java.io.BufferedReader}: line feed, carriage return,
  * or carriage return followed immediately by a linefeed.
  *
- * <p>Subclasses must implement {@link #handleLine}, call {@link #add} to pass character data, and
- * call {@link #finish} at the end of stream.
+ * <p>Subclasses must implement {@code #handleLine}, call {@code #add} to pass character data, and
+ * call {@code #finish} at the end of stream.
  *
  * @author Chris Nokleberg
  * @since 1.0
@@ -37,7 +37,7 @@ abstract class LineBuffer {
 
   /**
    * Process additional characters from the stream. When a line separator is found the contents of
-   * the line and the line separator itself are passed to the abstract {@link #handleLine} method.
+   * the line and the line separator itself are passed to the abstract {@code #handleLine} method.
    *
    * @param cbuf the character buffer to process
    * @param off the offset into the buffer
@@ -93,7 +93,7 @@ abstract class LineBuffer {
 
   /**
    * Subclasses must call this method after finishing character processing, in order to ensure that
-   * any unterminated line in the buffer is passed to {@link #handleLine}.
+   * any unterminated line in the buffer is passed to {@code #handleLine}.
    *
    * @throws IOException if an I/O error occurs
    */
@@ -104,7 +104,7 @@ abstract class LineBuffer {
   }
 
   /**
-   * Called for each line found in the character data passed to {@link #add}.
+   * Called for each line found in the character data passed to {@code #add}.
    *
    * @param line a line of text (possibly empty), without any line separators
    * @param end the line separator; one of {@code "\r"}, {@code "\n"}, {@code "\r\n"}, or {@code ""}

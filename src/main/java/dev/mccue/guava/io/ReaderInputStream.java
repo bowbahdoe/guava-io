@@ -32,7 +32,7 @@ import java.nio.charset.CodingErrorAction;
 import java.util.Arrays;
 
 /**
- * An {@link InputStream} that converts characters from a {@link Reader} into bytes using an
+ * An {@code InputStream} that converts characters from a {@code Reader} into bytes using an
  * arbitrary Charset.
  *
  * <p>This is an alternative to copying the data to an {@code OutputStream} via a {@code Writer},

@@ -19,7 +19,7 @@ import java.io.IOException;
 
 /**
  * An extension of {@code DataOutput} for writing to in-memory byte arrays; its methods offer
- * identical functionality but do not throw {@link IOException}.
+ * identical functionality but do not throw {@code IOException}.
  *
  * @author Jayaprabhakar Kadarkarai
  * @since 1.0

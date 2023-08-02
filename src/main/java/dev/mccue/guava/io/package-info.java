@@ -16,8 +16,8 @@
  * Utility methods and classes for I/O; for example input streams, output streams, readers, writers,
  * and files.
  *
- * <p>At the core of this package are the Source/Sink types: {@link ByteSource ByteSource}, {@link
- * CharSource CharSource}, {@link ByteSink ByteSink} and {@link CharSink CharSink}. They are
+ * <p>At the core of this package are the Source/Sink types: {@code ByteSource ByteSource}, {@code
+ * CharSource CharSource}, {@code ByteSink ByteSink} and {@code CharSink CharSink}. They are
  * factories for I/O streams that provide many convenience methods that handle both opening and
  * closing streams for you.
  *

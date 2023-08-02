@@ -18,7 +18,6 @@ import static dev.mccue.guava.base.Preconditions.checkArgument;
 import static dev.mccue.guava.base.Preconditions.checkNotNull;
 import static dev.mccue.guava.io.FileWriteMode.APPEND;
 
-
 import dev.mccue.guava.base.Joiner;
 import dev.mccue.guava.base.Optional;
 import dev.mccue.guava.base.Predicate;
@@ -32,7 +31,6 @@ import dev.mccue.guava.hash.HashCode;
 import dev.mccue.guava.hash.HashFunction;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.google.errorprone.annotations.InlineMe;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -57,10 +55,10 @@ import dev.mccue.jsr305.CheckForNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
- * Provides utility methods for working with {@linkplain File files}.
+ * Provides utility methods for working with {@code File files}.
  *
- * <p>{@link java.nio.file.Path} users will find similar utilities in {@link MoreFiles} and the
- * JDK's {@link java.nio.file.Files} class.
+ * <p>{@code java.nio.file.Path} users will find similar utilities in {@code MoreFiles} and the
+ * JDK's {@code java.nio.file.Files} class.
  *
  * @author Chris Nokleberg
  * @author Colin Decker
@@ -74,11 +72,11 @@ public final class Files {
   /**
    * Returns a buffered reader that reads from a file using the given character set.
    *
-   * <p><b>{@link java.nio.file.Path} equivalent:</b> {@link
+   * <p><b>{@code java.nio.file.Path} equivalent:</b> {@code
    * java.nio.file.Files#newBufferedReader(java.nio.file.Path, Charset)}.
    *
    * @param file the file to read from
-   * @param charset the charset used to decode the input stream; see {@link StandardCharsets} for
+   * @param charset the charset used to decode the input stream; see {@code StandardCharsets} for
    *     helpful predefined constants
    * @return the buffered reader
    */
@@ -91,12 +89,12 @@ public final class Files {
   /**
    * Returns a buffered writer that writes to a file using the given character set.
    *
-   * <p><b>{@link java.nio.file.Path} equivalent:</b> {@link
+   * <p><b>{@code java.nio.file.Path} equivalent:</b> {@code
    * java.nio.file.Files#newBufferedWriter(java.nio.file.Path, Charset,
    * java.nio.file.OpenOption...)}.
    *
    * @param file the file to write to
-   * @param charset the charset used to encode the output stream; see {@link StandardCharsets} for
+   * @param charset the charset used to encode the output stream; see {@code StandardCharsets} for
    *     helpful predefined constants
    * @return the buffered writer
    */
@@ -107,7 +105,7 @@ public final class Files {
   }
 
   /**
-   * Returns a new {@link ByteSource} for reading bytes from the given file.
+   * Returns a new {@code ByteSource} for reading bytes from the given file.
    *
    * @since 14.0
    */
@@ -167,9 +165,9 @@ public final class Files {
   }
 
   /**
-   * Returns a new {@link ByteSink} for writing bytes to the given file. The given {@code modes}
+   * Returns a new {@code ByteSink} for writing bytes to the given file. The given {@code modes}
    * control how the file is opened for writing. When no mode is provided, the file will be
-   * truncated before writing. When the {@link FileWriteMode#APPEND APPEND} mode is provided, writes
+   * truncated before writing. When the {@code FileWriteMode#APPEND APPEND} mode is provided, writes
    * will append to the end of the file without truncating it.
    *
    * @since 14.0
@@ -200,7 +198,7 @@ public final class Files {
   }
 
   /**
-   * Returns a new {@link CharSource} for reading character data from the given file using the given
+   * Returns a new {@code CharSource} for reading character data from the given file using the given
    * character set.
    *
    * @since 14.0
@@ -210,9 +208,9 @@ public final class Files {
   }
 
   /**
-   * Returns a new {@link CharSink} for writing character data to the given file using the given
+   * Returns a new {@code CharSink} for writing character data to the given file using the given
    * character set. The given {@code modes} control how the file is opened for writing. When no mode
-   * is provided, the file will be truncated before writing. When the {@link FileWriteMode#APPEND
+   * is provided, the file will be truncated before writing. When the {@code FileWriteMode#APPEND
    * APPEND} mode is provided, writes will append to the end of the file without truncating it.
    *
    * @since 14.0
@@ -224,7 +222,7 @@ public final class Files {
   /**
    * Reads all bytes from a file into a byte array.
    *
-   * <p><b>{@link java.nio.file.Path} equivalent:</b> {@link java.nio.file.Files#readAllBytes}.
+   * <p><b>{@code java.nio.file.Path} equivalent:</b> {@code java.nio.file.Files#readAllBytes}.
    *
    * @param file the file to read from
    * @return a byte array containing all the bytes from file
@@ -237,10 +235,10 @@ public final class Files {
   }
 
   /**
-   * Reads all characters from a file into a {@link String}, using the given character set.
+   * Reads all characters from a file into a {@code String}, using the given character set.
    *
    * @param file the file to read from
-   * @param charset the charset used to decode the input stream; see {@link StandardCharsets} for
+   * @param charset the charset used to decode the input stream; see {@code StandardCharsets} for
    *     helpful predefined constants
    * @return a string containing all the characters from the file
    * @throws IOException if an I/O error occurs
@@ -257,7 +255,7 @@ public final class Files {
   /**
    * Overwrites a file with the contents of a byte array.
    *
-   * <p><b>{@link java.nio.file.Path} equivalent:</b> {@link
+   * <p><b>{@code java.nio.file.Path} equivalent:</b> {@code
    * java.nio.file.Files#write(java.nio.file.Path, byte[], java.nio.file.OpenOption...)}.
    *
    * @param from the bytes to write
@@ -273,7 +271,7 @@ public final class Files {
    *
    * @param from the character sequence to write
    * @param to the destination file
-   * @param charset the charset used to encode the output stream; see {@link StandardCharsets} for
+   * @param charset the charset used to encode the output stream; see {@code StandardCharsets} for
    *     helpful predefined constants
    * @throws IOException if an I/O error occurs
    * @deprecated Prefer {@code asCharSink(to, charset).write(from)}.
@@ -289,7 +287,7 @@ public final class Files {
   /**
    * Copies all bytes from a file to an output stream.
    *
-   * <p><b>{@link java.nio.file.Path} equivalent:</b> {@link
+   * <p><b>{@code java.nio.file.Path} equivalent:</b> {@code
    * java.nio.file.Files#copy(java.nio.file.Path, OutputStream)}.
    *
    * @param from the source file
@@ -311,7 +309,7 @@ public final class Files {
    * with the contents of {@code from}. If {@code to} and {@code from} refer to the <i>same</i>
    * file, the contents of that file will be deleted.
    *
-   * <p><b>{@link java.nio.file.Path} equivalent:</b> {@link
+   * <p><b>{@code java.nio.file.Path} equivalent:</b> {@code
    * java.nio.file.Files#copy(java.nio.file.Path, java.nio.file.Path, java.nio.file.CopyOption...)}.
    *
    * @param from the source file
@@ -328,7 +326,7 @@ public final class Files {
    * Copies all characters from a file to an appendable object, using the given character set.
    *
    * @param from the source file
-   * @param charset the charset used to decode the input stream; see {@link StandardCharsets} for
+   * @param charset the charset used to decode the input stream; see {@code StandardCharsets} for
    *     helpful predefined constants
    * @param to the appendable object
    * @throws IOException if an I/O error occurs
@@ -348,7 +346,7 @@ public final class Files {
    *
    * @param from the character sequence to append
    * @param to the destination file
-   * @param charset the charset used to encode the output stream; see {@link StandardCharsets} for
+   * @param charset the charset used to encode the output stream; see {@code StandardCharsets} for
    *     helpful predefined constants
    * @throws IOException if an I/O error occurs
    * @deprecated Prefer {@code asCharSink(to, charset, FileWriteMode.APPEND).write(from)}. This
@@ -399,7 +397,7 @@ public final class Files {
    * Previous versions would create a directory that is more accessible, as discussed in <a
    * href="https://github.com/google/guava/issues/4011">CVE-2020-8908</a>.)
    *
-   * <p>Use this method instead of {@link File#createTempFile(String, String)} when you wish to
+   * <p>Use this method instead of {@code File#createTempFile(String, String)} when you wish to
    * create a directory, not a regular file. A common pitfall is to call {@code createTempFile},
    * delete the file and create a directory in its place, but this leads a race condition which can
    * be exploited to create security vulnerabilities, especially when executable files are to be
@@ -408,7 +406,7 @@ public final class Files {
    * <p>This method assumes that the temporary volume is writable, has free inodes and free blocks,
    * and that it will not be called thousands of times per second.
    *
-   * <p><b>{@link java.nio.file.Path} equivalent:</b> {@link
+   * <p><b>{@code java.nio.file.Path} equivalent:</b> {@code
    * java.nio.file.Files#createTempDirectory}.
    *
    * @return the newly-created directory
@@ -421,13 +419,12 @@ public final class Files {
    *     use {@code new File(context.getCacheDir(), "directoryname").mkdir()}, or, if you need an
    *     arbitrary number of temporary directories, you might have to generate multiple directory
    *     names in a loop until {@code mkdir()} returns {@code true}.) For developers on Java 7 or
-   *     later, use {@link java.nio.file.Files#createTempDirectory}, transforming it to a {@link
-   *     File} using {@link java.nio.file.Path#toFile() toFile()} if needed. To restrict permissions
+   *     later, use {@code java.nio.file.Files#createTempDirectory}, transforming it to a {@code
+   *     File} using {@code java.nio.file.Path#toFile() toFile()} if needed. To restrict permissions
    *     as this method does, pass {@code
    *     PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("rwx------"))} to your
    *     call to {@code createTempDirectory}.
    */
-  @Beta
   @Deprecated
   public static File createTempDir() {
     return TempFileCreator.INSTANCE.createTempDir();
@@ -480,7 +477,7 @@ public final class Files {
    * different directory. In either case {@code to} must be the target path for the file itself; not
    * just the new name for the file or the path to the new parent directory.
    *
-   * <p><b>{@link java.nio.file.Path} equivalent:</b> {@link java.nio.file.Files#move}.
+   * <p><b>{@code java.nio.file.Path} equivalent:</b> {@code java.nio.file.Files#move}.
    *
    * @param from the source file
    * @param to the destination file
@@ -508,7 +505,7 @@ public final class Files {
    * does include other leading and trailing whitespace.
    *
    * @param file the file to read from
-   * @param charset the charset used to decode the input stream; see {@link StandardCharsets} for
+   * @param charset the charset used to decode the input stream; see {@code StandardCharsets} for
    *     helpful predefined constants
    * @return the first line, or null if the file is empty
    * @throws IOException if an I/O error occurs
@@ -531,13 +528,13 @@ public final class Files {
    * <p>This method returns a mutable {@code List}. For an {@code ImmutableList}, use {@code
    * Files.asCharSource(file, charset).readLines()}.
    *
-   * <p><b>{@link java.nio.file.Path} equivalent:</b> {@link
+   * <p><b>{@code java.nio.file.Path} equivalent:</b> {@code
    * java.nio.file.Files#readAllLines(java.nio.file.Path, Charset)}.
    *
    * @param file the file to read from
-   * @param charset the charset used to decode the input stream; see {@link StandardCharsets} for
+   * @param charset the charset used to decode the input stream; see {@code StandardCharsets} for
    *     helpful predefined constants
-   * @return a mutable {@link List} containing all the lines
+   * @return a mutable {@code List} containing all the lines
    * @throws IOException if an I/O error occurs
    */
   public static List<String> readLines(File file, Charset charset) throws IOException {
@@ -562,13 +559,13 @@ public final class Files {
   }
 
   /**
-   * Streams lines from a {@link File}, stopping when our callback returns false, or we have read
+   * Streams lines from a {@code File}, stopping when our callback returns false, or we have read
    * all of the lines.
    *
    * @param file the file to read from
-   * @param charset the charset used to decode the input stream; see {@link StandardCharsets} for
+   * @param charset the charset used to decode the input stream; see {@code StandardCharsets} for
    *     helpful predefined constants
-   * @param callback the {@link LineProcessor} to use to handle the lines
+   * @param callback the {@code LineProcessor} to use to handle the lines
    * @return the output of processing the lines
    * @throws IOException if an I/O error occurs
    * @deprecated Prefer {@code asCharSource(file, charset).readLines(callback)}.
@@ -588,7 +585,7 @@ public final class Files {
   /**
    * Process the bytes of a file.
    *
-   * <p>(If this seems too complicated, maybe you're looking for {@link #toByteArray}.)
+   * <p>(If this seems too complicated, maybe you're looking for {@code #toByteArray}.)
    *
    * @param file the file to read
    * @param processor the object to which the bytes of the file are passed.
@@ -613,7 +610,7 @@ public final class Files {
    *
    * @param file the file to read
    * @param hashFunction the hash function to use to hash the data
-   * @return the {@link HashCode} of all of the bytes in the file
+   * @return the {@code HashCode} of all of the bytes in the file
    * @throws IOException if an I/O error occurs
    * @since 12.0
    * @deprecated Prefer {@code asByteSource(file).hash(hashFunction)}.
@@ -628,12 +625,12 @@ public final class Files {
   }
 
   /**
-   * Fully maps a file read-only in to memory as per {@link
-   * FileChannel#map(MapMode, long, long)}.
+   * Fully maps a file read-only in to memory as per {@code
+   * FileChannel#map(java.nio.channels.FileChannel.MapMode, long, long)}.
    *
    * <p>Files are mapped from offset 0 to its length.
    *
-   * <p>This only works for files ≤ {@link Integer#MAX_VALUE} bytes.
+   * <p>This only works for files ≤ {@code Integer#MAX_VALUE} bytes.
    *
    * @param file the file to map
    * @return a read-only buffer reflecting {@code file}
@@ -648,13 +645,13 @@ public final class Files {
   }
 
   /**
-   * Fully maps a file in to memory as per {@link
-   * FileChannel#map(MapMode, long, long)} using the requested {@link
+   * Fully maps a file in to memory as per {@code
+   * FileChannel#map(java.nio.channels.FileChannel.MapMode, long, long)} using the requested {@code
    * MapMode}.
    *
    * <p>Files are mapped from offset 0 to its length.
    *
-   * <p>This only works for files ≤ {@link Integer#MAX_VALUE} bytes.
+   * <p>This only works for files ≤ {@code Integer#MAX_VALUE} bytes.
    *
    * @param file the file to map
    * @param mode the mode to use when mapping {@code file}
@@ -669,16 +666,16 @@ public final class Files {
   }
 
   /**
-   * Maps a file in to memory as per {@link FileChannel#map(MapMode,
-   * long, long)} using the requested {@link MapMode}.
+   * Maps a file in to memory as per {@code FileChannel#map(java.nio.channels.FileChannel.MapMode,
+   * long, long)} using the requested {@code MapMode}.
    *
    * <p>Files are mapped from offset 0 to {@code size}.
    *
-   * <p>If the mode is {@link MapMode#READ_WRITE} and the file does not exist, it will be created
+   * <p>If the mode is {@code MapMode#READ_WRITE} and the file does not exist, it will be created
    * with the requested {@code size}. Thus this method is useful for creating memory mapped files
    * which do not yet exist.
    *
-   * <p>This only works for files ≤ {@link Integer#MAX_VALUE} bytes.
+   * <p>This only works for files ≤ {@code Integer#MAX_VALUE} bytes.
    *
    * @param file the file to map
    * @param mode the mode to use when mapping {@code file}
@@ -782,8 +779,8 @@ public final class Files {
    * include the '{@code .}'.
    *
    * <p><b>Note:</b> This method simply returns everything after the last '{@code .}' in the file's
-   * name as determined by {@link File#getName}. It does not account for any filesystem-specific
-   * behavior that the {@link File} API does not already account for. For example, on NTFS it will
+   * name as determined by {@code File#getName}. It does not account for any filesystem-specific
+   * behavior that the {@code File} API does not already account for. For example, on NTFS it will
    * report {@code "txt"} as the extension for the filename {@code "foo.exe:.txt"} even though NTFS
    * will drop the {@code ":.txt"} part of the name when the file is actually created on the
    * filesystem due to NTFS's <a href="https://goo.gl/vTpJi4">Alternate Data Streams</a>.
@@ -815,19 +812,19 @@ public final class Files {
   }
 
   /**
-   * Returns a {@link Traverser} instance for the file and directory tree. The returned traverser
-   * starts from a {@link File} and will return all files and directories it encounters.
+   * Returns a {@code Traverser} instance for the file and directory tree. The returned traverser
+   * starts from a {@code File} and will return all files and directories it encounters.
    *
    * <p><b>Warning:</b> {@code File} provides no support for symbolic links, and as such there is no
    * way to ensure that a symbolic link to a directory is not followed when traversing the tree. In
    * this case, iterables created by this traverser could contain files that are outside of the
    * given directory or even be infinite if there is a symbolic link loop.
    *
-   * <p>If available, consider using {@link MoreFiles#fileTraverser()} instead. It behaves the same
+   * <p>If available, consider using {@code MoreFiles#fileTraverser()} instead. It behaves the same
    * except that it doesn't follow symbolic links and returns {@code Path} instances.
    *
-   * <p>If the {@link File} passed to one of the {@link Traverser} methods does not exist or is not
-   * a directory, no exception will be thrown and the returned {@link Iterable} will contain a
+   * <p>If the {@code File} passed to one of the {@code Traverser} methods does not exist or is not
+   * a directory, no exception will be thrown and the returned {@code Iterable} will contain a
    * single element: that file.
    *
    * <p>Example: {@code Files.fileTraverser().depthFirstPreOrder(new File("/"))} may return files
@@ -857,7 +854,7 @@ public final class Files {
       };
 
   /**
-   * Returns a predicate that returns the result of {@link File#isDirectory} on input files.
+   * Returns a predicate that returns the result of {@code File#isDirectory} on input files.
    *
    * @since 15.0
    */
@@ -866,7 +863,7 @@ public final class Files {
   }
 
   /**
-   * Returns a predicate that returns the result of {@link File#isFile} on input files.
+   * Returns a predicate that returns the result of {@code File#isFile} on input files.
    *
    * @since 15.0
    */

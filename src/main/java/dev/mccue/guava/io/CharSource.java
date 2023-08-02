@@ -41,7 +41,7 @@ import dev.mccue.jsr305.CheckForNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
- * A readable source of characters, such as a text file. Unlike a {@link Reader}, a {@code
+ * A readable source of characters, such as a text file. Unlike a {@code Reader}, a {@code
  * CharSource} is not an open, stateful stream of characters that can be read and closed. Instead,
  * it is an immutable <i>supplier</i> of {@code Reader} instances.
  *
@@ -56,23 +56,23 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *       doing something and finally closing the reader that was opened.
  * </ul>
  *
- * <p>Several methods in this class, such as {@link #readLines()}, break the contents of the source
- * into lines. Like {@link BufferedReader}, these methods break lines on any of {@code \n}, {@code
+ * <p>Several methods in this class, such as {@code #readLines()}, break the contents of the source
+ * into lines. Like {@code BufferedReader}, these methods break lines on any of {@code \n}, {@code
  * \r} or {@code \r\n}, do not include the line separator in each line and do not consider there to
  * be an empty line at the end if the contents are terminated with a line separator.
  *
- * <p>Any {@link ByteSource} containing text encoded with a specific {@linkplain Charset character
- * encoding} may be viewed as a {@code CharSource} using {@link ByteSource#asCharSource(Charset)}.
+ * <p>Any {@code ByteSource} containing text encoded with a specific {@code Charset character
+ * encoding} may be viewed as a {@code CharSource} using {@code ByteSource#asCharSource(Charset)}.
  *
  * <p><b>Note:</b> In general, {@code CharSource} is intended to be used for "file-like" sources
  * that provide readers that are:
  *
  * <ul>
- *   <li><b>Finite:</b> Many operations, such as {@link #length()} and {@link #read()}, will either
+ *   <li><b>Finite:</b> Many operations, such as {@code #length()} and {@code #read()}, will either
  *       block indefinitely or fail if the source creates an infinite reader.
  *   <li><b>Non-destructive:</b> A <i>destructive</i> reader will consume or otherwise alter the
  *       source as they are read from it. A source that provides such readers will not be reusable,
- *       and operations that read from the stream (including {@link #length()}, in some
+ *       and operations that read from the stream (including {@code #length()}, in some
  *       implementations) will prevent further operations from completing as expected.
  * </ul>
  *
@@ -86,10 +86,10 @@ public abstract class CharSource {
   protected CharSource() {}
 
   /**
-   * Returns a {@link ByteSource} view of this char source that encodes chars read from this source
-   * as bytes using the given {@link Charset}.
+   * Returns a {@code ByteSource} view of this char source that encodes chars read from this source
+   * as bytes using the given {@code Charset}.
    *
-   * <p>If {@link ByteSource#asCharSource} is called on the returned source with the same charset,
+   * <p>If {@code ByteSource#asCharSource} is called on the returned source with the same charset,
    * the default implementation of this method will ensure that the original {@code CharSource} is
    * returned, rather than round-trip encoding. Subclasses that override this method should behave
    * the same way.
@@ -101,7 +101,7 @@ public abstract class CharSource {
   }
 
   /**
-   * Opens a new {@link Reader} for reading from this source. This method returns a new, independent
+   * Opens a new {@code Reader} for reading from this source. This method returns a new, independent
    * reader each time it is called.
    *
    * <p>The caller is responsible for ensuring that the returned reader is closed.
@@ -111,7 +111,7 @@ public abstract class CharSource {
   public abstract Reader openStream() throws IOException;
 
   /**
-   * Opens a new {@link BufferedReader} for reading from this source. This method returns a new,
+   * Opens a new {@code BufferedReader} for reading from this source. This method returns a new,
    * independent reader each time it is called.
    *
    * <p>The caller is responsible for ensuring that the returned reader is closed.
@@ -126,14 +126,14 @@ public abstract class CharSource {
   }
 
   /**
-   * Opens a new {@link Stream} for reading text one line at a time from this source. This method
+   * Opens a new {@code Stream} for reading text one line at a time from this source. This method
    * returns a new, independent stream each time it is called.
    *
    * <p>The returned stream is lazy and only reads from the source in the terminal operation. If an
    * I/O error occurs while the stream is reading from the source or when the stream is closed, an
-   * {@link UncheckedIOException} is thrown.
+   * {@code UncheckedIOException} is thrown.
    *
-   * <p>Like {@link BufferedReader#readLine()}, this method considers a line to be a sequence of
+   * <p>Like {@code BufferedReader#readLine()}, this method considers a line to be a sequence of
    * text that is terminated by (but does not include) one of {@code \r\n}, {@code \r} or {@code
    * \n}. If the source's content does not end in a line termination sequence, it is treated as if
    * it does.
@@ -170,7 +170,7 @@ public abstract class CharSource {
    * Returns the size of this source in chars, if the size can be easily determined without actually
    * opening the data stream.
    *
-   * <p>The default implementation returns {@link Optional#absent}. Some sources, such as a {@code
+   * <p>The default implementation returns {@code Optional#absent}. Some sources, such as a {@code
    * CharSequence}, may return a non-absent value. Note that in such cases, it is <i>possible</i>
    * that this method will return a different number of chars than would be returned by reading all
    * of the chars.
@@ -186,14 +186,14 @@ public abstract class CharSource {
 
   /**
    * Returns the length of this source in chars, even if doing so requires opening and traversing an
-   * entire stream. To avoid a potentially expensive operation, see {@link #lengthIfKnown}.
+   * entire stream. To avoid a potentially expensive operation, see {@code #lengthIfKnown}.
    *
-   * <p>The default implementation calls {@link #lengthIfKnown} and returns the value if present. If
-   * absent, it will fall back to a heavyweight operation that will open a stream, {@link
+   * <p>The default implementation calls {@code #lengthIfKnown} and returns the value if present. If
+   * absent, it will fall back to a heavyweight operation that will open a stream, {@code
    * Reader#skip(long) skip} to the end of the stream, and return the total number of chars that
    * were skipped.
    *
-   * <p>Note that for sources that implement {@link #lengthIfKnown} to provide a more efficient
+   * <p>Note that for sources that implement {@code #lengthIfKnown} to provide a more efficient
    * implementation, it is <i>possible</i> that this method will return a different number of chars
    * than would be returned by reading all of the chars.
    *
@@ -230,7 +230,7 @@ public abstract class CharSource {
   }
 
   /**
-   * Appends the contents of this source to the given {@link Appendable} (such as a {@link Writer}).
+   * Appends the contents of this source to the given {@code Appendable} (such as a {@code Writer}).
    * Does not close {@code appendable} if it is {@code Closeable}.
    *
    * @return the number of characters copied
@@ -295,7 +295,7 @@ public abstract class CharSource {
   /**
    * Reads the first line of this source as a string. Returns {@code null} if this source is empty.
    *
-   * <p>Like {@link BufferedReader#readLine()}, this method considers a line to be a sequence of
+   * <p>Like {@code BufferedReader#readLine()}, this method considers a line to be a sequence of
    * text that is terminated by (but does not include) one of {@code \r\n}, {@code \r} or {@code
    * \n}. If the source's content does not end in a line termination sequence, it is treated as if
    * it does.
@@ -319,7 +319,7 @@ public abstract class CharSource {
    * Reads all the lines of this source as a list of strings. The returned list will be empty if
    * this source is empty.
    *
-   * <p>Like {@link BufferedReader#readLine()}, this method considers a line to be a sequence of
+   * <p>Like {@code BufferedReader#readLine()}, this method considers a line to be a sequence of
    * text that is terminated by (but does not include) one of {@code \r\n}, {@code \r} or {@code
    * \n}. If the source's content does not end in a line termination sequence, it is treated as if
    * it does.
@@ -344,11 +344,11 @@ public abstract class CharSource {
   }
 
   /**
-   * Reads lines of text from this source, processing each line as it is read using the given {@link
+   * Reads lines of text from this source, processing each line as it is read using the given {@code
    * LineProcessor processor}. Stops when all lines have been processed or the processor returns
    * {@code false} and returns the result produced by the processor.
    *
-   * <p>Like {@link BufferedReader#readLine()}, this method considers a line to be a sequence of
+   * <p>Like {@code BufferedReader#readLine()}, this method considers a line to be a sequence of
    * text that is terminated by (but does not include) one of {@code \r\n}, {@code \r} or {@code
    * \n}. If the source's content does not end in a line termination sequence, it is treated as if
    * it does.
@@ -377,7 +377,7 @@ public abstract class CharSource {
    * Reads all lines of text from this source, running the given {@code action} for each line as it
    * is read.
    *
-   * <p>Like {@link BufferedReader#readLine()}, this method considers a line to be a sequence of
+   * <p>Like {@code BufferedReader#readLine()}, this method considers a line to be a sequence of
    * text that is terminated by (but does not include) one of {@code \r\n}, {@code \r} or {@code
    * \n}. If the source's content does not end in a line termination sequence, it is treated as if
    * it does.
@@ -396,7 +396,7 @@ public abstract class CharSource {
   }
 
   /**
-   * Returns whether the source has zero chars. The default implementation first checks {@link
+   * Returns whether the source has zero chars. The default implementation first checks {@code
    * #lengthIfKnown}, returning true if it's known to be zero and false if it's known to be
    * non-zero. If the length is not known, it falls back to opening a stream and checking for EOF.
    *
@@ -424,7 +424,7 @@ public abstract class CharSource {
   }
 
   /**
-   * Concatenates multiple {@link CharSource} instances into a single source. Streams returned from
+   * Concatenates multiple {@code CharSource} instances into a single source. Streams returned from
    * the source will contain the concatenated data from the streams of the underlying sources.
    *
    * <p>Only one underlying stream will be open at a time. Closing the concatenated stream will
@@ -439,7 +439,7 @@ public abstract class CharSource {
   }
 
   /**
-   * Concatenates multiple {@link CharSource} instances into a single source. Streams returned from
+   * Concatenates multiple {@code CharSource} instances into a single source. Streams returned from
    * the source will contain the concatenated data from the streams of the underlying sources.
    *
    * <p>Only one underlying stream will be open at a time. Closing the concatenated stream will
@@ -448,7 +448,7 @@ public abstract class CharSource {
    * <p>Note: The input {@code Iterator} will be copied to an {@code ImmutableList} when this method
    * is called. This will fail if the iterator is infinite and may cause problems if the iterator
    * eagerly fetches data for each source when iterated (rather than producing sources that only
-   * load data through their streams). Prefer using the {@link #concat(Iterable)} overload if
+   * load data through their streams). Prefer using the {@code #concat(Iterable)} overload if
    * possible.
    *
    * @param sources the sources to concatenate
@@ -461,7 +461,7 @@ public abstract class CharSource {
   }
 
   /**
-   * Concatenates multiple {@link CharSource} instances into a single source. Streams returned from
+   * Concatenates multiple {@code CharSource} instances into a single source. Streams returned from
    * the source will contain the concatenated data from the streams of the underlying sources.
    *
    * <p>Only one underlying stream will be open at a time. Closing the concatenated stream will
@@ -477,7 +477,7 @@ public abstract class CharSource {
   }
 
   /**
-   * Returns a view of the given character sequence as a {@link CharSource}. The behavior of the
+   * Returns a view of the given character sequence as a {@code CharSource}. The behavior of the
    * returned {@code CharSource} and any {@code Reader} instances created by it is unspecified if
    * the {@code charSequence} is mutated while it is being read, so don't do that.
    *
@@ -490,7 +490,7 @@ public abstract class CharSource {
   }
 
   /**
-   * Returns an immutable {@link CharSource} that contains no characters.
+   * Returns an immutable {@code CharSource} that contains no characters.
    *
    * @since 15.0
    */
@@ -625,10 +625,10 @@ public abstract class CharSource {
    * <p>Since Strings are immutable and built into the jdk we can optimize some operations
    *
    * <ul>
-   *   <li>use {@link StringReader} instead of {@link CharSequenceReader}. It is faster since it can
-   *       use {@link String#getChars(int, int, char[], int)} instead of copying characters one by
-   *       one with {@link CharSequence#charAt(int)}.
-   *   <li>use {@link Appendable#append(CharSequence)} in {@link #copyTo(Appendable)} and {@link
+   *   <li>use {@code StringReader} instead of {@code CharSequenceReader}. It is faster since it can
+   *       use {@code String#getChars(int, int, char[], int)} instead of copying characters one by
+   *       one with {@code CharSequence#charAt(int)}.
+   *   <li>use {@code Appendable#append(CharSequence)} in {@code #copyTo(Appendable)} and {@code
    *       #copyTo(CharSink)}. We know this is correct since strings are immutable and so the length
    *       can't change, and it is faster because many writers and appendables are optimized for
    *       appending string instances.

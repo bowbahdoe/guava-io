@@ -26,7 +26,7 @@ import java.io.Writer;
 import java.nio.charset.Charset;
 
 /**
- * A destination to which bytes can be written, such as a file. Unlike an {@link OutputStream}, a
+ * A destination to which bytes can be written, such as a file. Unlike an {@code OutputStream}, a
  * {@code ByteSink} is not an open, stateful stream that can be written to and closed. Instead, it
  * is an immutable <i>supplier</i> of {@code OutputStream} instances.
  *
@@ -51,15 +51,15 @@ public abstract class ByteSink {
   protected ByteSink() {}
 
   /**
-   * Returns a {@link CharSink} view of this {@code ByteSink} that writes characters to this sink as
-   * bytes encoded with the given {@link Charset charset}.
+   * Returns a {@code CharSink} view of this {@code ByteSink} that writes characters to this sink as
+   * bytes encoded with the given {@code Charset charset}.
    */
   public CharSink asCharSink(Charset charset) {
     return new AsCharSink(charset);
   }
 
   /**
-   * Opens a new {@link OutputStream} for writing to this sink. This method returns a new,
+   * Opens a new {@code OutputStream} for writing to this sink. This method returns a new,
    * independent stream each time it is called.
    *
    * <p>The caller is responsible for ensuring that the returned stream is closed.
@@ -69,16 +69,16 @@ public abstract class ByteSink {
   public abstract OutputStream openStream() throws IOException;
 
   /**
-   * Opens a new buffered {@link OutputStream} for writing to this sink. The returned stream is not
-   * required to be a {@link BufferedOutputStream} in order to allow implementations to simply
-   * delegate to {@link #openStream()} when the stream returned by that method does not benefit from
+   * Opens a new buffered {@code OutputStream} for writing to this sink. The returned stream is not
+   * required to be a {@code BufferedOutputStream} in order to allow implementations to simply
+   * delegate to {@code #openStream()} when the stream returned by that method does not benefit from
    * additional buffering (for example, a {@code ByteArrayOutputStream}). This method returns a new,
    * independent stream each time it is called.
    *
    * <p>The caller is responsible for ensuring that the returned stream is closed.
    *
    * @throws IOException if an I/O error occurs while opening the stream
-   * @since 15.0 (in 14.0 with return type {@link BufferedOutputStream})
+   * @since 15.0 (in 14.0 with return type {@code BufferedOutputStream})
    */
   public OutputStream openBufferedStream() throws IOException {
     OutputStream out = openStream();

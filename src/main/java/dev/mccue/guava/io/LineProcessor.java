@@ -21,7 +21,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 /**
  * A callback to be used with the streaming {@code readLines} methods.
  *
- * <p>{@link #processLine} will be called for each line that is read, and should return {@code
+ * <p>{@code #processLine} will be called for each line that is read, and should return {@code
  * false} when you want to stop processing.
  *
  * @author Miles Barr
