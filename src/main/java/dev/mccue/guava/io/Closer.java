@@ -15,8 +15,9 @@
 package dev.mccue.guava.io;
 
 import static dev.mccue.guava.base.Preconditions.checkNotNull;
+import static dev.mccue.guava.base.Throwables.throwIfInstanceOf;
+import static dev.mccue.guava.base.Throwables.throwIfUnchecked;
 
-import dev.mccue.guava.base.Throwables;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import java.io.Closeable;
 import java.io.IOException;
@@ -143,7 +144,8 @@ public final class Closer implements Closeable {
   public RuntimeException rethrow(Throwable e) throws IOException {
     checkNotNull(e);
     thrown = e;
-    Throwables.propagateIfPossible(e, IOException.class);
+    throwIfInstanceOf(e, IOException.class);
+    throwIfUnchecked(e);
     throw new RuntimeException(e);
   }
 
@@ -165,8 +167,9 @@ public final class Closer implements Closeable {
       throws IOException, X {
     checkNotNull(e);
     thrown = e;
-    Throwables.propagateIfPossible(e, IOException.class);
-    Throwables.propagateIfPossible(e, declaredType);
+    throwIfInstanceOf(e, IOException.class);
+    throwIfInstanceOf(e, declaredType);
+    throwIfUnchecked(e);
     throw new RuntimeException(e);
   }
 
@@ -189,8 +192,10 @@ public final class Closer implements Closeable {
       Throwable e, Class<X1> declaredType1, Class<X2> declaredType2) throws IOException, X1, X2 {
     checkNotNull(e);
     thrown = e;
-    Throwables.propagateIfPossible(e, IOException.class);
-    Throwables.propagateIfPossible(e, declaredType1, declaredType2);
+    throwIfInstanceOf(e, IOException.class);
+    throwIfInstanceOf(e, declaredType1);
+    throwIfInstanceOf(e, declaredType2);
+    throwIfUnchecked(e);
     throw new RuntimeException(e);
   }
 
@@ -220,7 +225,8 @@ public final class Closer implements Closeable {
     }
 
     if (thrown == null && throwable != null) {
-      Throwables.propagateIfPossible(throwable, IOException.class);
+      throwIfInstanceOf(throwable, IOException.class);
+      throwIfUnchecked(throwable);
       throw new AssertionError(throwable); // not possible
     }
   }
