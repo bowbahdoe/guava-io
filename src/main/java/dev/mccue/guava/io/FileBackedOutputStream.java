@@ -101,15 +101,6 @@ public final class FileBackedOutputStream extends OutputStream {
     this(fileThreshold, false);
   }
 
-  /**
-   * Creates a new instance that uses the given file threshold, and optionally resets the data when
-   * the {@code ByteSource} returned by {@code #asByteSource} is finalized.
-   *
-   * @param fileThreshold the number of bytes before the stream should switch to buffering to a file
-   * @param resetOnFinalize if true, the {@code #reset} method will be called when the {@code
-   *     ByteSource} returned by {@code #asByteSource} is finalized.
-   * @throws IllegalArgumentException if {@code fileThreshold} is negative
-   */
   private FileBackedOutputStream(int fileThreshold, boolean resetOnFinalize) {
     checkArgument(
         fileThreshold >= 0, "fileThreshold must be non-negative, but was %s", fileThreshold);

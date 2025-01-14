@@ -17,7 +17,6 @@ package dev.mccue.guava.io;
 import static dev.mccue.guava.base.Preconditions.checkArgument;
 import static dev.mccue.guava.base.Preconditions.checkNotNull;
 
-import dev.mccue.guava.base.Charsets;
 import dev.mccue.guava.base.MoreObjects;
 import dev.mccue.guava.collect.Lists;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
@@ -26,6 +25,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
@@ -96,8 +96,8 @@ public final class Resources {
    * Reads all characters from a URL into a {@code String}, using the given character set.
    *
    * @param url the URL to read from
-   * @param charset the charset used to decode the input stream; see {@code Charsets} for helpful
-   *     predefined constants
+   * @param charset the charset used to decode the input stream; see {@code StandardCharsets} for
+   *     helpful predefined constants
    * @return a string containing all the characters from the URL
    * @throws IOException if an I/O error occurs.
    */
@@ -110,8 +110,8 @@ public final class Resources {
    * lines.
    *
    * @param url the URL to read from
-   * @param charset the charset used to decode the input stream; see {@code Charsets} for helpful
-   *     predefined constants
+   * @param charset the charset used to decode the input stream; see {@code StandardCharsets} for
+   *     helpful predefined constants
    * @param callback the LineProcessor to use to handle the lines
    * @return the output of processing the lines
    * @throws IOException if an I/O error occurs
@@ -131,8 +131,8 @@ public final class Resources {
    * Resources.asCharSource(url, charset).readLines()}.
    *
    * @param url the URL to read from
-   * @param charset the charset used to decode the input stream; see {@code Charsets} for helpful
-   *     predefined constants
+   * @param charset the charset used to decode the input stream; see {@code StandardCharsets} for
+   *     helpful predefined constants
    * @return a mutable {@code List} containing all the lines
    * @throws IOException if an I/O error occurs
    */

@@ -22,7 +22,7 @@ import java.nio.file.SecureDirectoryStream;
  * Options for use with recursive delete methods ({@code MoreFiles#deleteRecursively} and {@code
  * MoreFiles#deleteDirectoryContents}).
  *
- * @since 21.0
+ * @since 21.0 (but only since 33.4.0 in the Android flavor)
  * @author Colin Decker
  */
 // java.nio.file

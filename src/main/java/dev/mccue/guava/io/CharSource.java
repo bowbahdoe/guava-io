@@ -15,6 +15,7 @@
 package dev.mccue.guava.io;
 
 import static dev.mccue.guava.base.Preconditions.checkNotNull;
+import static dev.mccue.guava.collect.Streams.stream;
 
 import dev.mccue.guava.base.Ascii;
 import dev.mccue.guava.base.Optional;
@@ -22,10 +23,10 @@ import dev.mccue.guava.base.Splitter;
 import dev.mccue.guava.collect.AbstractIterator;
 import dev.mccue.guava.collect.ImmutableList;
 import dev.mccue.guava.collect.Lists;
-import dev.mccue.guava.collect.Streams;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.google.errorprone.annotations.MustBeClosed;
 import java.io.BufferedReader;
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
@@ -149,21 +150,26 @@ public abstract class CharSource {
    * }</pre>
    *
    * @throws IOException if an I/O error occurs while opening the stream
-   * @since 22.0
+   * @since 22.0 (but only since 33.4.0 in the Android flavor)
    */
   @MustBeClosed
   public Stream<String> lines() throws IOException {
     BufferedReader reader = openBufferedStream();
-    return reader
-        .lines()
-        .onClose(
-            () -> {
-              try {
-                reader.close();
-              } catch (IOException e) {
-                throw new UncheckedIOException(e);
-              }
-            });
+    return reader.lines().onClose(() -> closeUnchecked(reader));
+  }
+
+  @SuppressWarnings("Java7ApiChecker")
+  @IgnoreJRERequirement // helper for lines()
+  /*
+   * If we make these calls inline inside the lambda inside lines(), we get an Animal Sniffer error,
+   * despite the @IgnoreJRERequirement annotation there. For details, see ImmutableSortedMultiset.
+   */
+  private static void closeUnchecked(Closeable closeable) {
+    try {
+      closeable.close();
+    } catch (IOException e) {
+      throw new UncheckedIOException(e);
+    }
   }
 
   /**
@@ -384,7 +390,7 @@ public abstract class CharSource {
    *
    * @throws IOException if an I/O error occurs while reading from this source or if {@code action}
    *     throws an {@code UncheckedIOException}
-   * @since 22.0
+   * @since 22.0 (but only since 33.4.0 in the Android flavor)
    */
   public void forEachLine(Consumer<? super String> action) throws IOException {
     try (Stream<String> lines = lines()) {
@@ -586,7 +592,7 @@ public abstract class CharSource {
 
     @Override
     public Stream<String> lines() {
-      return Streams.stream(linesIterator());
+      return stream(linesIterator());
     }
 
     @Override

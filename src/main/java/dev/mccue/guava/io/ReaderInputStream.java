@@ -17,6 +17,7 @@ package dev.mccue.guava.io;
 import static dev.mccue.guava.base.Preconditions.checkArgument;
 import static dev.mccue.guava.base.Preconditions.checkNotNull;
 import static dev.mccue.guava.base.Preconditions.checkPositionIndexes;
+import static java.lang.Math.min;
 
 import dev.mccue.guava.primitives.UnsignedBytes;
 import java.io.IOException;
@@ -247,7 +248,7 @@ final class ReaderInputStream extends InputStream {
    * number of characters copied.
    */
   private int drain(byte[] b, int off, int len) {
-    int remaining = Math.min(len, byteBuffer.remaining());
+    int remaining = min(len, byteBuffer.remaining());
     byteBuffer.get(b, off, remaining);
     return remaining;
   }

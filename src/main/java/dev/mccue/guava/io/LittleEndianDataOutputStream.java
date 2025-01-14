@@ -15,7 +15,6 @@
 package dev.mccue.guava.io;
 
 import dev.mccue.guava.base.Preconditions;
-import dev.mccue.guava.primitives.Longs;
 import java.io.DataOutput;
 import java.io.DataOutputStream;
 import java.io.FilterOutputStream;
@@ -139,8 +138,7 @@ public final class LittleEndianDataOutputStream extends FilterOutputStream imple
    */
   @Override
   public void writeLong(long v) throws IOException {
-    byte[] bytes = Longs.toByteArray(Long.reverseBytes(v));
-    write(bytes, 0, bytes.length);
+    ((DataOutputStream) out).writeLong(Long.reverseBytes(v));
   }
 
   /**

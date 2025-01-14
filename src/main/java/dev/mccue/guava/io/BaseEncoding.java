@@ -20,6 +20,8 @@ import static dev.mccue.guava.base.Preconditions.checkPositionIndexes;
 import static dev.mccue.guava.base.Preconditions.checkState;
 import static dev.mccue.guava.math.IntMath.divide;
 import static dev.mccue.guava.math.IntMath.log2;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 import static java.math.RoundingMode.CEILING;
 import static java.math.RoundingMode.FLOOR;
 import static java.math.RoundingMode.UNNECESSARY;
@@ -42,7 +44,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * href="http://tools.ietf.org/html/rfc4648">RFC 4648</a>. For example, the expression:
  *
  * <pre>{@code
- * BaseEncoding.base32().encode("foo".getBytes(Charsets.US_ASCII))
+ * BaseEncoding.base32().encode("foo".getBytes(US_ASCII))
  * }</pre>
  *
  * <p>returns the string {@code "MZXW6==="}, and
@@ -677,7 +679,7 @@ public abstract class BaseEncoding {
       checkNotNull(target);
       checkPositionIndexes(off, off + len, bytes.length);
       for (int i = 0; i < len; i += alphabet.bytesPerChunk) {
-        encodeChunkTo(target, bytes, off + i, Math.min(alphabet.bytesPerChunk, len - i));
+        encodeChunkTo(target, bytes, off + i, min(alphabet.bytesPerChunk, len - i));
       }
     }
 
@@ -1147,7 +1149,7 @@ public abstract class BaseEncoding {
     int maxEncodedSize(int bytes) {
       int unseparatedSize = delegate.maxEncodedSize(bytes);
       return unseparatedSize
-          + separator.length() * divide(Math.max(0, unseparatedSize - 1), afterEveryChars, FLOOR);
+          + separator.length() * divide(max(0, unseparatedSize - 1), afterEveryChars, FLOOR);
     }
 
     // Writer,OutputStream

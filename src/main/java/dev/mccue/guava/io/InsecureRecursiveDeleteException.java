@@ -29,7 +29,7 @@ import dev.mccue.jsr305.CheckForNull;
  * <p>{@code RecursiveDeleteOption#ALLOW_INSECURE} can be used to force the recursive delete method
  * to proceed anyway.
  *
- * @since 21.0
+ * @since 21.0 (but only since 33.4.0 in the Android flavor)
  * @author Colin Decker
  */
 // java.nio.file
